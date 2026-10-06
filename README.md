@@ -29,5 +29,5 @@ nom : les fichiers statiques prennent la main.
 
 ## remotes
 
-- `origin` — github.com/Centre-de-la-Photographie-Ordinaire/website-draft
-- `lamai` — miroir gitea lamai (url à documenter après création)
+- `origin` — https://github.com/Centre-de-la-Photographie-Ordinaire/website-draft
+- `lamai` — http://localhost:3000/alx/website-draft (miroir gitea lamai)
