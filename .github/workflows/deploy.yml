@@ -5,14 +5,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# unique ligne differenciante entre les deux repos (website-draft vs .github.io)
+env:
+  HUGO_BASE_URL: "https://centre-de-la-photographie-ordinaire.github.io/"
+
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: github.pages
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -27,20 +25,18 @@ jobs:
           tar -xf /tmp/hugo.tar.gz -C /tmp hugo
           /tmp/hugo version
       - name: Build
-        run: /tmp/hugo build --minify --destination public
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+        run: /tmp/hugo build --minify --baseURL "${HUGO_BASE_URL}" --destination public
+      - name: Publish to gh-pages
+        env:
+          TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -ex
+          cd public
+          git init -q
+          git config user.name "pages-bot"
+          git config user.email "pages-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "pages build ${GITHUB_SHA}"
+          git remote add origin "https://x-token:${TOKEN}@github.com/${REPO}.git"
+          git push -f -q origin HEAD:refs/heads/gh-pages
