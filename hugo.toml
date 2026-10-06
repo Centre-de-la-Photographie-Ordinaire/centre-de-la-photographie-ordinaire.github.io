@@ -1,0 +1,10 @@
+baseURL = ""
+languageCode = "fr-fr"
+title = "centre de la photographie ordinaire — brouillons"
+timeZone = "Europe/Paris"
+enableRobustParser = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

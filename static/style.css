@@ -1,0 +1,71 @@
+/* charte graphique — centre de la photographie ordinaire
+   fond : gris anthracite #2A2E33
+   texte : blanc chamois #F5EFE4
+   accent : jaune #FAB617 | orange #F37120 | bleu encre #1B4F8C */
+:root {
+  --bg: #2A2E33;
+  --ink: #F5EFE4;
+  --accent: #FAB617;
+  --orange: #F37120;
+  --bleu: #1B4F8C;
+  --dim: rgba(245, 239, 228, 0.55);
+}
+* { margin: 0; box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Spectral", Georgia, "Times New Roman", serif;
+  font-size: 1.02rem;
+}
+/* en-tete : logotype lettre-espacée (DIN dans la charte) */
+.site-header { padding: 5rem 2rem 3rem; }
+.site-header .overline {
+  font-size: 0.78rem;
+  letter-spacing: 0.4em;
+  color: var(--dim);
+}
+.site-header .logotype {
+  margin-top: 0.35rem;
+  font-family: "DIN", "DIN Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.3rem, 4vw, 2.1rem);
+  letter-spacing: 0.55em;
+  text-transform: lowercase;
+}
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  line-height: 1.7;
+}
+main p { margin-bottom: 1.1em; }
+main h2 {
+  font-family: "DIN", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: lowercase;
+  margin: 2.2em 0 1em;
+  color: var(--accent);
+}
+main a { color: var(--accent); text-decoration: none; }
+main a:hover { text-decoration: underline; }
+.exp { display: block; margin: 0.9em 0; }
+.exp strong {
+  font-family: "DIN", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+}
+.exp small { display: block; color: var(--dim); font-size: 0.9rem; margin-top: 0.2em; }
+.site-footer {
+  padding: 1.6rem 2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: var(--dim);
+}
