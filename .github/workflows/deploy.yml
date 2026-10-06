@@ -27,7 +27,7 @@ jobs:
           tar -xf /tmp/hugo.tar.gz -C /tmp hugo
           /tmp/hugo version
       - name: Build
-        run: /tmp/hugo build --minify --baseURL https://centre-de-la-photographie-ordinaire.github.io/website-draft/ --destination public
+        run: /tmp/hugo build --minify --destination public
       - uses: actions/configure-pages@v5
         with:
           enablement: true
