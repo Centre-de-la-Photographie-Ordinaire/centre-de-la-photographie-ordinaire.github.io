@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>centre de la photographie ordinaire</title>
+  <meta name="description" content="Diaporama — centre de la photographie ordinaire" />
+  <style>
+    :root {
+      --ink: #f2efe9;
+      --accent: #FAB617;
+      --bg: #2A2E33;
+    }
+    * { margin: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    /* la scène occupe tout l'écran ; la photo est centrée dedans */
+    #stage {
+      position: fixed; inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* La photo est dimensionnée en JS pour occuper une grande part de
+       l'écran (voir TARGET_RATIO dans main.js), ratio conservé, upscalée si
+       sa définition est faible. Elle reste un peu en dessous du plein écran
+       et laisse la place à la barre de points en bas.
+       Le curseur indique l'interaction lecture / pause. */
+    #photo {
+      display: block;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      /* lissage correct quand la photo est agrandie */
+      image-rendering: auto;
+      /* respect du sens de lecture EXIF + pas de sélection / glisser */
+      image-orientation: from-image;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none;
+      pointer-events: none; /* le clic est géré par #stage */
+      background: rgba(255, 255, 255, 0.03);
+      transition: opacity 0.12s linear;
+    }
+    /* indicateur discret de pause : petit symbole ▶︎/❚❚, au-dessus des points */
+    #state {
+      position: fixed;
+      left: 50%;
+      bottom: 48px;
+      transform: translateX(-50%);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: lowercase;
+      color: var(--ink);
+      opacity: 0.5;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    body.paused #state { opacity: 0.95; }
+    body.paused #state::before { content: "❚❚ "; color: var(--accent); }
+    body:not(.paused) #state::before { content: "▶︎ "; }
+    /* le texte suit l'état : on invite à mettre en pause pendant la lecture,
+       et à relancer quand c'est déjà en pause */
+    body:not(.paused) #state::after { content: "cliquez sur la photo pour mettre en pause"; }
+    body.paused #state::after { content: "cliquez sur la photo pour relancer"; }
+
+    #masthead {
+      position: fixed; top: 22px; left: 26px;
+      pointer-events: none;
+      background: rgba(42, 46, 51, 0.55);
+      padding: 10px 14px;
+      border-radius: 6px;
+      max-width: calc(100% - 42px);
+    }
+    #masthead h1 {
+      font-size: 15px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: lowercase;
+    }
+    #masthead a#enter {
+      pointer-events: auto;
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.14em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    #masthead a#enter:hover { text-decoration: underline; }
+
+    #hint {
+      position: fixed; top: 24px; right: 26px;
+      font-size: 12px; letter-spacing: 0.08em;
+      color: var(--ink); opacity: 0.45;
+      pointer-events: none;
+      max-width: 240px; text-align: right;
+      transition: opacity 0.6s;
+    }
+    #hint.fade { opacity: 0; }
+
+    /* --------------------------------------------------------- pagination */
+    /* jeu réduit : quelques points, le point actif au centre, encadré de
+       points gris — pas un point par photo (le fonds fera ~500 images). */
+    #dots {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    #dots .dot {
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--ink);
+      opacity: 0.28;
+      transition: width 0.28s ease, opacity 0.28s ease, background-color 0.28s ease;
+    }
+    #dots .dot.active {
+      width: 20px;
+      opacity: 1;
+      background: var(--accent);
+    }
+    /* à chaque nouvelle photo, le point central pulse brièvement, en glissant
+       du côté du défilement (droite = photo suivante, gauche = précédente) */
+    #dots .dot.active.pulse {
+      animation: dot-pulse 0.5s ease;
+    }
+    /* variante directionnelle : petit décalage horizontal pendant le pulse */
+    #dots .dot.active.pulse.next {
+      animation: dot-pulse-next 0.5s ease;
+    }
+    #dots .dot.active.pulse.prev {
+      animation: dot-pulse-prev 0.5s ease;
+    }
+
+    @keyframes dot-pulse {
+      0%   { transform: scaleX(1); }
+      35%  { transform: scaleX(1.6); }
+      100% { transform: scaleX(1); }
+    }
+    @keyframes dot-pulse-next {
+      0%   { transform: translateX(0) scaleX(1); }
+      35%  { transform: translateX(6px) scaleX(1.6); }
+      100% { transform: translateX(0) scaleX(1); }
+    }
+    @keyframes dot-pulse-prev {
+      0%   { transform: translateX(0) scaleX(1); }
+      35%  { transform: translateX(-6px) scaleX(1.6); }
+      100% { transform: translateX(0) scaleX(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #dots .dot { transition: none; }
+      #dots .dot.active.pulse,
+      #dots .dot.active.pulse.next,
+      #dots .dot.active.pulse.prev { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="stage" role="button" tabindex="0" aria-label="Photo — cliquer pour mettre en pause ou relancer le diaporama">
+    <img id="photo" alt="" draggable="false" decoding="async" />
+  </div>
+
+  <div id="dots" aria-hidden="true"></div>
+  <div id="state"></div>
+  <div id="hint">un clic arrête le diaporama, un second le relance —&nbsp;flèches ← → pour reculer / avancer, espace pour pause</div>
+
+  <header id="masthead">
+    <h1>centre de la photographie ordinaire</h1>
+    <a id="enter" href="../../">Entrer &rarr;</a>
+  </header>
+
+  <script>
+    // aide debug : toute erreur JS est affichée en haut à gauche
+    addEventListener('error', (e) => {
+      let d = document.getElementById('__err');
+      if (!d) {
+        d = document.createElement('pre'); d.id = '__err';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99;background:#a00;color:#fff;font-size:12px;white-space:pre-wrap;pointer-events:none';
+        document.body.appendChild(d);
+      }
+      d.textContent += (e.message || e.type) + '\n' + ((e.error && e.error.stack) || '') + '\n---\n';
+    });
+    addEventListener('unhandledrejection', (e) => {
+      let d = document.getElementById('__err');
+      if (!d) {
+        d = document.createElement('pre'); d.id = '__err';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99;background:#a00;color:#fff;font-size:12px;white-space:pre-wrap;pointer-events:none';
+        document.body.appendChild(d);
+      }
+      d.textContent += 'REJECT: ' + ((e.reason && e.reason.stack) || e.reason) + '\n';
+    });
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

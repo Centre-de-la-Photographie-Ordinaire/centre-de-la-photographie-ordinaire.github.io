@@ -22,7 +22,12 @@ html, body {
 #masthead {
   position: fixed; top: 22px; left: 26px;
   pointer-events: none;
-  opacity: 0.95;
+  /* fond semi-transparent : le texte reste lisible quand une feuille
+     passe derrière le bloc (photo claire ou sombre) */
+  background: rgba(42, 46, 51, 0.55);
+  padding: 10px 14px;
+  border-radius: 6px;
+  max-width: calc(100% - 42px);
 }
 #masthead h1 {
   font-size: 15px; font-weight: 600; letter-spacing: 0.22em;

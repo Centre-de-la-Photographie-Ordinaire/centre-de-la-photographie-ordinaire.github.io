@@ -27,7 +27,23 @@ hugo server         # mode dev, auto-reload
 L'URL finale sera `/experiments/<nom>/`. Ne pas créer de page Hugo du même
 nom : les fichiers statiques prennent la main.
 
-## remotes
+## remotes / deploys
 
 - `origin` — https://github.com/Centre-de-la-Photographie-Ordinaire/website-draft
 - `lamai` — http://localhost:3000/alx/website-draft (miroir gitea lamai)
+
+Deploys github pages (deux repos, meme contenu) :
+
+| repo github | sert sur | `HUGO_BASE_URL` (deploy.yml) |
+|---|---|---|
+| `.../website-draft` | `centre-de-la-photographie-ordinaire.github.io/website-draft/` | `.../website-draft/` |
+| `.../centre-de-la-photographie-ordinaire.github.io` (site org) | racine `centre-de-la-photographie-ordinaire.github.io/` | `.../` |
+
+Le push sur `main` de chaque repo declenche son workflow : `hugo build` puis
+push force de `public/` vers la branche `gh-pages` du meme repo (token dans le
+secret `PAGES_DEPLOY_TOKEN`, configures via `gh secret set`). `static/.nojekyll`
+desactive Jekyll sur la branche `gh-pages`.
+
+**Sync** : apres commit sur ce repo (website-draft), re-appliquer le meme commit
+sur le repo `.github.io` avec la seule difference `HUGO_BASE_URL` (voir le
+dernier commit de chaque repo pour la forme exacte).
