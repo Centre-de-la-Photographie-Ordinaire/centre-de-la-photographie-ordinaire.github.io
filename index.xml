@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>brouillons on centre de la photographie ordinaire · brouillons</title><link>https://centre-de-la-photographie-ordinaire.github.io/</link><description>Recent content in brouillons on centre de la photographie ordinaire · brouillons</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://centre-de-la-photographie-ordinaire.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>contact</title><link>https://centre-de-la-photographie-ordinaire.github.io/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/contact/</guid><description>&lt;h2&gt;coordonnées&lt;/h2&gt;
+&lt;address class="coordonnees"&gt;
+ centre de la photographie ordinaire&lt;br /&gt;
+ Simorre 32420&lt;br /&gt;
+ &lt;span class="provisoire"&gt;courriel / téléphone à préciser (bead org-9s8.6)&lt;/span&gt;
+&lt;/address&gt;
+&lt;h2&gt;écrire au centre&lt;/h2&gt;
+&lt;form class="form-contact" action="https://formspree.io/f/xvkzkvre" method="POST"&gt;
+ &lt;label&gt;nom
+ &lt;input type="text" name="nom" autocomplete="name" required /&gt;
+ &lt;/label&gt;
+ &lt;label&gt;adresse e-mail
+ &lt;input type="email" name="email" autocomplete="email" required /&gt;
+ &lt;/label&gt;
+ &lt;label&gt;message
+ &lt;textarea name="message" rows="6" required&gt;&lt;/textarea&gt;
+ &lt;/label&gt;
+ &lt;input type="hidden" name="_subject" value="Nouveau message · centre de la photographie ordinaire" /&gt;
+ &lt;button type="submit"&gt;envoyer&lt;/button&gt;
+&lt;/form&gt;
+&lt;p class="note"&gt;les messages sont transmis au centre via Formspree (brouillon de site : décision de passer par Formspree pour ce site, cf. bead org-9s8.6). Aucune donnée n'est stockée sur le site lui-même.&lt;/p&gt;</description></item><item><title>esprit</title><link>https://centre-de-la-photographie-ordinaire.github.io/esprit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/esprit/</guid><description>&lt;div class="esprit-grid"&gt;
+ &lt;section class="esprit-texte"&gt;
+ &lt;p&gt;Le Centre de la photographie ordinaire abrite la collection « le commun des mortels » : 3 000 000 de photographies de famille, classées en plus de 400 thèmes.&lt;/p&gt;
+ &lt;p&gt;3 000 000 de photographies amateurs et anonymes déploient un immense récit humain, du début de la photographie à nos jours. Le classement en plus de 400 thèmes révèle l'histoire du regard et des pratiques photographiques populaires.&lt;/p&gt;
+ &lt;p&gt;La collection sauvegarde ce patrimoine vernaculaire et œuvre à changer notre rapport aux photographies devenues anonymes.&lt;/p&gt;</description></item><item><title>expositions</title><link>https://centre-de-la-photographie-ordinaire.github.io/expositions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/expositions/</guid><description>&lt;p class="provisoire"&gt;contenu provisoire : liste réelle des expositions (nom, date, lieu) et visuels à recevoir (bead org-9s8.5). Sélectionner une exposition dans la liste de gauche affiche son contenu dans la colonne de droite.&lt;/p&gt;</description></item><item><title>les missions du centre</title><link>https://centre-de-la-photographie-ordinaire.github.io/missions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/missions/</guid><description>&lt;p class="provisoire"&gt;textes provisoires : liste et formulations à valider avec le centre (bead org-9s8.4)&lt;/p&gt;
+&lt;h3&gt;sauvegarder&lt;/h3&gt;
+&lt;p&gt;Le centre sauvegarde 3 000 000 de photographies de famille, un patrimoine vernaculaire fragile, Numérisation, classement en plus de 400 thèmes, conservation dans la durée : les images devenues anonymes ne doivent pas disparaître.&lt;/p&gt;
+&lt;h3&gt;exposer&lt;/h3&gt;
+&lt;p&gt;Le centre présente la collection sous forme d'expositions, au centre et en dehors, pour montrer ce que les photographies ordinaires racontent de la vie commune et de l'histoire du regard populaire.&lt;/p&gt;</description></item></channel></rss>
