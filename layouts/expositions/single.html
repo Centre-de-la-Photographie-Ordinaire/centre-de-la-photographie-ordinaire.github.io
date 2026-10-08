@@ -1,0 +1,53 @@
+{{ define "main" }}
+<main class="main main-large">
+<h1 class="page-titre">{{ .Title }}</h1>
+{{ .Content }}
+{{ with .Params.expos }}
+<div class="md-grid">
+  <nav class="md-liste" aria-label="liste des expositions">
+    <ol>
+      {{ range $i, $e := . }}
+      <li>
+        <button type="button" class="expo-item{{ if eq $i 0 }} active{{ end }}" data-expo="expo-{{ $i }}">
+          <span class="expo-nom">{{ $e.nom }}</span>
+          <span class="expo-meta">{{ $e.date }} — {{ $e.lieu }}</span>
+        </button>
+      </li>
+      {{ end }}
+    </ol>
+  </nav>
+  <div class="md-contenu">
+    {{ range $i, $e := . }}
+    <section class="expo-detail{{ if eq $i 0 }} active{{ end }}" id="expo-{{ $i }}">
+      {{ with $e.image }}
+      <img src="{{ . }}" alt="{{ $e.nom }} — visuel" loading="lazy" />
+      {{ end }}
+      <p class="expo-meta">{{ $e.date }} — {{ $e.lieu }}</p>
+      {{ with $e.texte }}
+      <p>{{ . }}</p>
+      {{ end }}
+    </section>
+    {{ end }}
+  </div>
+</div>
+<script>
+/* master-detail — liste (col-4 gauche) + contenu de l'exposition sélectionnée (col-8 droite),
+   d'après le principe de romapublications.org (pas de lightbox plein écran) */
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.expo-item'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.expo-detail'));
+  if (!items.length) return;
+  items.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      items.forEach(function (b) { b.classList.remove('active'); });
+      panels.forEach(function (p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      var target = document.getElementById(btn.dataset.expo);
+      if (target) target.classList.add('active');
+    });
+  });
+})();
+</script>
+{{ end }}
+</main>
+{{ end }}
