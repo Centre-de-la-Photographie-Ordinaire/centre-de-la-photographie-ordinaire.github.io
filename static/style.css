@@ -67,7 +67,8 @@ body {
 }
 .menu-toggle:hover span { background: var(--accent); }
 .nav {
-  display: none;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: calc(100% + 0.6rem);
   right: 0;
@@ -75,10 +76,17 @@ body {
   background: var(--ardoise);
   border: 1px solid rgba(245, 239, 228, 0.18);
   padding: 0.6rem;
-  flex-direction: column;
   gap: 0.1rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
 }
-.nav.open { display: flex; }
+.nav.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 .nav a {
   font-family: var(--font-titre);
   font-size: 1rem;
@@ -150,6 +158,57 @@ body {
 
 /* ===== page 1 — esprit ===== */
 .main .logo { margin-bottom: 1.4rem; }
+
+/* grille éditoriale texte | photo (même montage que l'accueil du site de ref) */
+.esprit-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 2fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 2.4rem;
+}
+.esprit-texte { display: flex; flex-direction: column; gap: 1.1rem; line-height: 1.7; }
+.esprit-texte p { margin: 0; }
+.esprit-image { margin: 0; }
+.esprit-image img { width: 100%; height: auto; display: block; }
+
+/* accordéon des 3 contenus (details/summary, sans JS) */
+.acc { margin-bottom: 0.4rem; }
+.acc-item { border-bottom: 1px solid rgba(245, 239, 228, 0.18); }
+.acc-item:first-child { border-top: 1px solid rgba(245, 239, 228, 0.18); }
+.acc-item summary {
+  font-family: var(--font-titre);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  padding: 0.95rem 2.6rem 0.95rem 0;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+.acc-item summary::-webkit-details-marker { display: none; }
+.acc-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dim);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+.acc-item[open] summary { color: var(--accent); }
+.acc-item[open] summary::after { content: '–'; color: var(--accent); }
+.acc-contenu { padding: 0 0 1.3rem; max-width: 72ch; }
+.acc-contenu p { margin: 0 0 0.9rem; line-height: 1.7; }
+.acc-contenu > :last-child { margin-bottom: 0; }
+.acc-contenu blockquote {
+  border-left: 2px solid var(--accent);
+  margin: 0.9rem 0;
+  padding-left: 1rem;
+  color: var(--dim);
+  font-style: italic;
+}
+
 .logo-partenaires {
   display: flex;
   align-items: center;
@@ -169,14 +228,11 @@ body {
 }
 .logo-ministere { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .mention-bicentenaire { font-size: 0.92rem; max-width: 46ch; color: var(--dim); }
-.ministriere-ph {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-  opacity: 0.5;
-  border: 1px dashed var(--ink);
-  padding: 0.5rem 0.9rem;
-  white-space: nowrap;
+.logo-bicentenaire { width: min(19rem, 100%); height: auto; display: block; }
+
+@media (max-width: 700px) {
+  .esprit-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .esprit-image { order: -1; }
 }
 
 /* vidéo placeholder */
