@@ -18,15 +18,15 @@ sansTitre: true
   <details class="acc-item" open>
     <summary>le sens de notre travail sur l'ordinaire</summary>
     <div class="acc-contenu">
-      <p class="provisoire">contenu provisoire — texte définitif à venir (bead org-9s8.3)</p>
+      <p class="provisoire">contenu provisoire : texte définitif à venir (bead org-9s8.3)</p>
       <p>Le « commun des mortels » rassemble des photographies sans auteur connu, prises par et pour des familles. Notre travail consiste à donner leur place à ces images devenues anonymes : les sauvegarder, les classer en thèmes, les exposer.</p>
-      <p>L'ordinaire photographié — les repas, les fêtes, les vacances, les jardins — est une archive de la vie courante. Le centre s'attache à montrer ce que ces 3 000 000 d'images disent de nous, et à changer notre rapport aux photographies que personne n'a « faites pour l'histoire ».</p>
+      <p>L'ordinaire photographié (les repas, les fêtes, les vacances, les jardins) est une archive de la vie courante. Le centre s'attache à montrer ce que ces 3 000 000 d'images disent de nous, et à changer notre rapport aux photographies que personne n'a « faites pour l'histoire ».</p>
     </div>
   </details>
   <details class="acc-item">
     <summary>l'histoire de la collection</summary>
     <div class="acc-contenu">
-      <p class="provisoire">contenu provisoire — à valider avec le centre (bead org-9s8.3)</p>
+      <p class="provisoire">contenu provisoire : à valider avec le centre (bead org-9s8.3)</p>
       <p>La collection naît d'une collection privée, portée par Élise Pic. Elle est aujourd'hui confiée à une association qui œuvre à sa sauvegarde et à sa mise en valeur, et s'ouvre au fonds de donation : les familles peuvent confier leurs photographies pour qu'elles rejoignent le commun des mortels.</p>
       <blockquote>Question en attente de réponse du centre (suivi dans le bead org-9s8.8) : faut-il présenter ici la structure administrative du centre (statut, gouvernance, modalités de donation) ?</blockquote>
     </div>
@@ -34,10 +34,10 @@ sansTitre: true
   <details class="acc-item">
     <summary>vidéo d'interview</summary>
     <div class="acc-contenu">
-      <p class="provisoire">vidéo à venir — aucun fichier disponible pour l'instant (bead org-9s8.3)</p>
+      <p class="provisoire">vidéo à venir : aucun fichier disponible pour l'instant (bead org-9s8.3)</p>
       <figure class="video-ph">
         <div class="video-cadre" role="img" aria-label="emplacement de la vidéo d'interview">▶</div>
-        <figcaption>vidéo d'interview — fichier à recevoir, puis intégré ici (lecture locale, pas de plateforme tierce si possible)</figcaption>
+        <figcaption>vidéo d'interview : fichier à recevoir, puis intégré ici (lecture locale, pas de plateforme tierce si possible)</figcaption>
       </figure>
     </div>
   </details>

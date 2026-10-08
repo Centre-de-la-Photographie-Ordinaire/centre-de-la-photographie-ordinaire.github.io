@@ -2,10 +2,10 @@
 title: les missions du centre
 ---
 
-<p class="provisoire">textes provisoires — liste et formulations à valider avec le centre (bead org-9s8.4)</p>
+<p class="provisoire">textes provisoires : liste et formulations à valider avec le centre (bead org-9s8.4)</p>
 
 <h3>sauvegarder</h3>
-<p>Le centre sauvegarde 3 000 000 de photographies de famille — un patrimoine vernaculaire fragile. Numérisation, classement en plus de 400 thèmes, conservation dans la durée : les images devenues anonymes ne doivent pas disparaître.</p>
+<p>Le centre sauvegarde 3 000 000 de photographies de famille, un patrimoine vernaculaire fragile, Numérisation, classement en plus de 400 thèmes, conservation dans la durée : les images devenues anonymes ne doivent pas disparaître.</p>
 
 <h3>exposer</h3>
 <p>Le centre présente la collection sous forme d'expositions, au centre et en dehors, pour montrer ce que les photographies ordinaires racontent de la vie commune et de l'histoire du regard populaire.</p>

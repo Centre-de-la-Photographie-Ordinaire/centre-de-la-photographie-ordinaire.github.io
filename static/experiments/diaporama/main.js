@@ -157,7 +157,7 @@ function start() {
   if (timer) return;
   playing = true;
   document.body.classList.remove('paused');
-  stage.setAttribute('aria-label', 'Photo — cliquer pour mettre en pause le diaporama');
+  stage.setAttribute('aria-label', 'Photo : cliquer pour mettre en pause le diaporama');
   if (current < 0) advance(); // première photo tout de suite
   timer = setInterval(advance, INTERVAL);
 }
@@ -168,7 +168,7 @@ function pause() {
   timer = null;
   playing = false;
   document.body.classList.add('paused');
-  stage.setAttribute('aria-label', 'Photo — cliquer pour relancer le diaporama');
+  stage.setAttribute('aria-label', 'Photo : cliquer pour relancer le diaporama');
 }
 
 function toggle() { playing ? pause() : start(); }

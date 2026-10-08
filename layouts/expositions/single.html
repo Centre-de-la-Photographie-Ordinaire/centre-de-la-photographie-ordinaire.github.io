@@ -10,7 +10,7 @@
       <li>
         <button type="button" class="expo-item{{ if eq $i 0 }} active{{ end }}" data-expo="expo-{{ $i }}">
           <span class="expo-nom">{{ $e.nom }}</span>
-          <span class="expo-meta">{{ $e.date }} — {{ $e.lieu }}</span>
+          <span class="expo-meta">{{ $e.date }} · {{ $e.lieu }}</span>
         </button>
       </li>
       {{ end }}
@@ -20,9 +20,9 @@
     {{ range $i, $e := . }}
     <section class="expo-detail{{ if eq $i 0 }} active{{ end }}" id="expo-{{ $i }}">
       {{ with $e.image }}
-      <img src="{{ . }}" alt="{{ $e.nom }} — visuel" loading="lazy" />
+      <img src="{{ . }}" alt="{{ $e.nom }} (visuel)" loading="lazy" />
       {{ end }}
-      <p class="expo-meta">{{ $e.date }} — {{ $e.lieu }}</p>
+      <p class="expo-meta">{{ $e.date }} · {{ $e.lieu }}</p>
       {{ with $e.texte }}
       <p>{{ . }}</p>
       {{ end }}

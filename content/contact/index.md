@@ -22,8 +22,8 @@ title: contact
   <label>message
     <textarea name="message" rows="6" required></textarea>
   </label>
-  <input type="hidden" name="_subject" value="Nouveau message — centre de la photographie ordinaire" />
+  <input type="hidden" name="_subject" value="Nouveau message · centre de la photographie ordinaire" />
   <button type="submit">envoyer</button>
 </form>
 
-<p class="note">les messages sont transmis au centre via Formspree (brouillon de site — décision de passer par Formspree pour ce site ; cf. bead org-9s8.6). Aucune donnée n'est stockée sur le site lui-même.</p>
+<p class="note">les messages sont transmis au centre via Formspree (brouillon de site : décision de passer par Formspree pour ce site, cf. bead org-9s8.6). Aucune donnée n'est stockée sur le site lui-même.</p>
