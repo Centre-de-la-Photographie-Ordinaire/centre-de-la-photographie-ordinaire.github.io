@@ -1,8 +1,7 @@
 ---
 title: esprit
+sansTitre: true
 ---
-
-{{< logo size=112 >}}
 
 <div class="esprit-grid">
   <section class="esprit-texte">
@@ -47,7 +46,6 @@ title: esprit
 <div class="logo-partenaires">
   <div class="logo-cpo">
     {{< logo size=96 >}}
-    <span class="logo-legende">centre de la photographie ordinaire</span>
   </div>
   <div class="logo-ministere">
     <img class="logo-bicentenaire" src="/images/bicentenaire_banner.png" alt="Bicentenaire de la photographie 1826–2026" width="2033" height="728">
