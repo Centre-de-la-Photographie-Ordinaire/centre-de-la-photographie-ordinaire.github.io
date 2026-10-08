@@ -1,8 +1,6 @@
 ---
-title: missions
+title: les missions du centre
 ---
-
-<h2>les missions du centre</h2>
 
 <p class="provisoire">textes provisoires — liste et formulations à valider avec le centre (bead org-9s8.4)</p>
 

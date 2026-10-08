@@ -15,7 +15,7 @@ sansTitre: true
 </div>
 
 <div class="acc">
-  <details class="acc-item">
+  <details class="acc-item" open>
     <summary>le sens de notre travail sur l'ordinaire</summary>
     <div class="acc-contenu">
       <p class="provisoire">contenu provisoire — texte définitif à venir (bead org-9s8.3)</p>
@@ -48,7 +48,7 @@ sansTitre: true
     {{< logo size=96 >}}
   </div>
   <div class="logo-ministere">
-    <img class="logo-bicentenaire" src="/images/bicentenaire_banner.png" alt="Bicentenaire de la photographie 1826–2026" width="2033" height="728">
+    <img class="logo-bicentenaire" src="/images/bicentenaire_circle_logo.png" alt="Bicentenaire de la photographie 1826–2026" width="736" height="334">
     <p class="mention-bicentenaire">De septembre 2026 à septembre 2027, les expositions et ateliers proposés sont labellisés par le Ministère de la Culture dans le cadre du Bicentenaire de la Photographie.</p>
   </div>
 </div>

@@ -44,6 +44,16 @@
     if (e.key === 'Escape') close();
   });
 })();
+/* accordéon (.acc-item) : un seul panneau ouvert à la fois */
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.acc-item'));
+  if (!items.length) return;
+  items.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) items.forEach(function (o) { if (o !== d) o.open = false; });
+    });
+  });
+})();
 </script>
 </body>
 </html>

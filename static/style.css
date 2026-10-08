@@ -27,6 +27,7 @@ body {
 
 /* ===== header partagé — logo haut-gauche + hamburger dropdown droite ===== */
 .site-header {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -47,7 +48,7 @@ body {
   line-height: 1.15;
 }
 .site-lieu { margin-top: 0.1rem; font-size: 0.9rem; color: var(--dim); }
-.menu-wrap { position: relative; flex-shrink: 0; }
+.menu-wrap { flex-shrink: 0; }
 .menu-toggle {
   display: flex;
   flex-direction: column;
@@ -66,12 +67,14 @@ body {
   transition: opacity 0.2s;
 }
 .menu-toggle:hover span { background: var(--accent); }
+/* dropdown ancré sur le header : il retombe depuis la barre de séparation et la masque */
 .nav {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: calc(100% + 0.6rem);
-  right: 0;
+  top: calc(100% - 2px);
+  right: 1.5rem;
+  z-index: 30;
   min-width: 11.5rem;
   background: var(--ardoise);
   border: 1px solid rgba(245, 239, 228, 0.18);
@@ -171,33 +174,21 @@ body {
 .esprit-image { margin: 0; }
 .esprit-image img { width: 100%; height: auto; display: block; }
 
-/* accordéon des 3 contenus (details/summary, sans JS) */
-.acc { margin-bottom: 0.4rem; }
-.acc-item { border-bottom: 1px solid rgba(245, 239, 228, 0.18); }
-.acc-item:first-child { border-top: 1px solid rgba(245, 239, 228, 0.18); }
+/* onglets des 3 contenus — 3 summaries sur une ligne, contenu sous la ligne, un seul ouvert à la fois */
+.acc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2.2rem; margin-bottom: 0.4rem; }
 .acc-item summary {
   font-family: var(--font-titre);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
+  font-weight: 500;
   letter-spacing: 0.04em;
-  padding: 0.95rem 2.6rem 0.95rem 0;
+  padding: 0.7rem 0 0.75rem;
   cursor: pointer;
   list-style: none;
-  position: relative;
+  border-bottom: 1px solid rgba(245, 239, 228, 0.18);
 }
 .acc-item summary::-webkit-details-marker { display: none; }
-.acc-item summary::after {
-  content: '+';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--dim);
-  font-size: 1.35rem;
-  line-height: 1;
-}
-.acc-item[open] summary { color: var(--accent); }
-.acc-item[open] summary::after { content: '–'; color: var(--accent); }
-.acc-contenu { padding: 0 0 1.3rem; max-width: 72ch; }
+.acc-item[open] summary { color: var(--accent); border-bottom-color: var(--accent); }
+.acc-contenu { padding: 1.2rem 0 0.4rem; min-height: 3rem; }
 .acc-contenu p { margin: 0 0 0.9rem; line-height: 1.7; }
 .acc-contenu > :last-child { margin-bottom: 0; }
 .acc-contenu blockquote {
@@ -212,20 +203,21 @@ body {
   display: flex;
   align-items: center;
   gap: 1.4rem;
-  flex-wrap: wrap;
   border-top: 1px solid rgba(245, 239, 228, 0.18);
   margin: 2.2rem 0;
   padding-top: 1.4rem;
 }
 .logo-cpo { display: flex; align-items: center; gap: 0.9rem; }
 .logo-cpo .logo { line-height: 0; }
-.logo-ministere { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.logo-ministere { display: flex; align-items: center; gap: 1rem; }
 .mention-bicentenaire { font-size: 0.92rem; max-width: 46ch; color: var(--dim); }
-.logo-bicentenaire { width: min(19rem, 100%); height: auto; display: block; }
+.logo-bicentenaire { width: 12rem; height: auto; display: block; }
 
 @media (max-width: 700px) {
   .esprit-grid { grid-template-columns: 1fr; gap: 1.4rem; }
   .esprit-image { order: -1; }
+  .acc { grid-template-columns: 1fr; }
+  .logo-partenaires, .logo-ministere { flex-wrap: wrap; }
 }
 
 /* vidéo placeholder */
