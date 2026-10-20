@@ -1,5 +1,23 @@
 {{ define "main" }}
-<main class="main">
-{{ .Content }}
-</main>
+{{/* Redirige vers le depot website-draft (source unique du site).
+     https://centre-de-la-photographie-Ordinaire.github.io/
+       -> https://centre-de-la-photographie-Ordinaire.github.io/website-draft/ */}}
+{{- $target := "https://centre-de-la-photographie-Ordinaire.github.io/website-draft/" -}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Redirection - centre de la photographie ordinaire</title>
+  <!-- redirection HTTP (la plus rapide, fonctionne sans JS) -->
+  <meta http-equiv="refresh" content="0; url={{ $target }}">
+  <!-- URL canonique : indique aux moteurs de recherche la bonne adresse -->
+  <link rel="canonical" href="{{ $target }}">
+  <!-- securite : si le meta-refresh est ignore, JS rattrape -->
+  <script>location.replace({{ $target | jsonify }});</script>
+</head>
+<body>
+  <p>Le site a demenage : <a href="{{ $target }}">centre-de-la-photographie-Ordinaire.github.io/website-draft/</a></p>
+  <p>Si la redirection ne se fait pas automatiquement, cliquez sur le lien ci-dessus.</p>
+</body>
+</html>
 {{ end }}
