@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>experiment · logo + titre (haut-gauche)</title>
+<meta name="description" content="Experiment : versions couleur officielles du logo CPO et variations de couleur du titre, d'après la page 3 de la charte graphique web." />
+<style>
+  :root {
+    --bg: #2A2E33;
+    --ink: #F5EFE4;
+    --accent: #FAB617;
+    --orange: #F37120;
+    --encre: #1B4F8C;
+    --ardoise: #14171A;
+    --dim: rgba(245, 239, 228, 0.55);
+    --ft: "DIN", "DIN Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 52rem; margin: 0 auto; }
+  h1 {
+    font-family: var(--ft);
+    font-size: 1.6rem;
+    letter-spacing: 0.4em;
+    text-transform: lowercase;
+    margin-bottom: 0.4rem;
+  }
+  .intro { color: var(--dim); max-width: 74ch; margin-bottom: 2rem; }
+  .section-titre {
+    font-family: var(--ft);
+    font-size: 1.05rem;
+    letter-spacing: 0.25em;
+    text-transform: lowercase;
+    color: var(--accent);
+    margin: 2.6rem 0 1rem;
+  }
+  /* partie 1 : grille des 5 versions du logo */
+  .grid-logo { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; }
+  .cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.2rem 0.6rem;
+    border: 1px solid rgba(245, 239, 228, 0.16);
+  }
+  .cell.fond-sombre { background: var(--bg); }
+  .cell.fond-clair { background: var(--ink); }
+  .cell img { width: 92px; height: auto; }
+  .cell .cap { font-size: 0.85rem; text-align: center; line-height: 1.45; }
+  .cell.fond-sombre .cap { color: var(--dim); }
+  .cell.fond-clair .cap { color: #5a5348; }
+  .cell .hex { font-family: var(--ft); font-size: 0.72rem; letter-spacing: 0.08em; }
+  .note { color: var(--dim); font-size: 0.88rem; margin-top: 1rem; max-width: 74ch; }
+  /* barre de header simulée, contexte commun à toutes les variantes */
+  .variant { margin-bottom: 1.6rem; }
+  .vlabel {
+    font-family: var(--ft);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: lowercase;
+    margin-bottom: 0.5rem;
+  }
+  .vlabel small { color: var(--dim); letter-spacing: 0.05em; text-transform: none; margin-left: 0.8rem; }
+  .mock {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(245, 239, 228, 0.16);
+    background: rgba(20, 23, 26, 0.35);
+  }
+  .mock .fill { flex: 1; }
+  .hamb { display: flex; flex-direction: column; gap: 5px; opacity: 0.7; }
+  .hamb i { display: block; width: 30px; height: 2px; background: var(--ink); }
+  .a { text-decoration: none; display: block; line-height: 0; }
+  .a:hover .lg { transform: scale(1.04); }
+  .lg { display: block; transition: transform 0.2s; }
+  .t1 { font-family: var(--ft); font-size: clamp(1.05rem, 2.4vw, 1.55rem); font-weight: 500; line-height: 1.15; }
+  .t2 { font-size: 0.9rem; color: var(--dim); margin-top: 0.1rem; }
+  .fin { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(245,239,228,0.18); color: var(--dim); font-size: 0.9rem; max-width: 74ch; }
+  @media (max-width: 700px) { .grid-logo { grid-template-columns: repeat(3, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>logo + titre</h1>
+  <p class="intro">Versions officielles du logo CPO (fichiers <code>logo_cpo/</code>, fond transparent) et variations de couleur du titre, d'après la palette de la page 3 de la charte graphique web. Chaque élément est montré dans le même contexte : barre de header sur fond #2A2E33, menu hamburger à droite. La combinaison retenue alimentera le header des pages du site et le favicon.</p>
+
+  <h2 class="section-titre">1 · le logo, 5 versions couleur</h2>
+  <div class="grid-logo">
+    <div class="cell fond-sombre">
+      <img src="logo/yellow.png" width="240" height="232" alt="logo CPO, version jaune">
+      <p class="cap">jaune<br><span class="hex">#FAB617</span></p>
+    </div>
+    <div class="cell fond-sombre">
+      <img src="logo/orange.png" width="241" height="232" alt="logo CPO, version orange">
+      <p class="cap">orange<br><span class="hex">#F37120</span></p>
+    </div>
+    <div class="cell fond-clair">
+      <img src="logo/blue.png" width="241" height="230" alt="logo CPO, version bleue">
+      <p class="cap">bleu<br><span class="hex">#1B4F8C</span></p>
+    </div>
+    <div class="cell fond-clair">
+      <img src="logo/dark.png" width="241" height="231" alt="logo CPO, version sombre">
+      <p class="cap">sombre<br><span class="hex">#14171A</span></p>
+    </div>
+    <div class="cell fond-sombre">
+      <img src="logo/light.png" width="240" height="232" alt="logo CPO, version crème">
+      <p class="cap">crème<br><span class="hex">#F5EFE4</span></p>
+    </div>
+  </div>
+  <p class="note">Même dessin (carré, cercle, texte en arc) dans les cinq couleurs de la charte ; la version jaune est la seule à porter un cercle bleu, les autres un cercle jaune. Les versions crème et sombre s'utilisent sur fond opposé : crème sur fond sombre (ce site), sombre sur fond clair (papier, print).</p>
+
+  <h2 class="section-titre">2 · le titre, 4 variations couleur</h2>
+
+  <div class="variant">
+    <p class="vlabel">crème <small>#F5EFE4 · couleur standard du texte du site</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/light.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#F5EFE4">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="vlabel">jaune <small>#FAB617 · couleur accent de la charte, titre mis en avant</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/light.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#FAB617">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="vlabel">orange <small>#F37120 · seconde couleur accent</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/light.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#F37120">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="vlabel">encre <small>#1B4F8C · faible contraste sur fond sombre, à juger</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/light.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#1B4F8C">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <h2 class="section-titre">3 · header combiné, 4 propositions</h2>
+
+  <div class="variant">
+    <p class="vlabel">A · logo crème, titre crème <small>recommandé sur fond sombre : sobriété, tout le poids sur le carré</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/light.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#F5EFE4">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="vlabel">B · logo jaune, titre jaune <small>le carré jaune et le titre partagent la couleur accent</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/yellow.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#FAB617">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="vlabel">C · logo orange, titre orange <small>accent chaud, plus nerveux que le jaune</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/orange.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#F37120">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="vlabel">D · logo bleu, titre encre <small>le plus discret ; contraste du titre faible, à juger</small></p>
+    <div class="mock">
+      <a class="a" href="#"><img class="lg" src="logo/blue.png" width="56" height="55" alt=""></a>
+      <div><p class="t1" style="color:#1B4F8C">centre de la photographie ordinaire</p><p class="t2">Simorre 32420</p></div>
+      <span class="fill"></span><span class="hamb"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+
+  <p class="fin">À décider avec le centre : la version de logo et la couleur de titre retenues remplacent le header actuel des pages (brouillons + site final) et alimenteront aussi le favicon. Voir la page 3 de la charte (« logo image, à discuter ») pour les échelles sources.</p>
+</div>
+</body>
+</html>

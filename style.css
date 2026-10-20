@@ -1,0 +1,730 @@
+/* cdlpo-wa : premier deploiement du bot 2026-10-16 */
+/* charte graphique — centre de la photographie ordinaire
+   fond : gris anthracite #2A2E33
+   texte : blanc chamois #F5EFE4
+   accent : jaune #FAB617 | orange #F37120 | bleu encre #1B4F8C
+   noir ardoise #14171A */
+:root {
+  --bg: #2A2E33;
+  --ink: #F5EFE4;
+  --accent: #FAB617;
+  --orange: #F37120;
+  --bleu: #1B4F8C;
+  --ardoise: #14171A;
+  --dim: rgba(245, 239, 228, 0.55);
+  --font-titre: "DIN", "DIN Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+* { margin: 0; box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Spectral", Georgia, "Times New Roman", serif;
+  font-size: 1.02rem;
+}
+
+/* ===== header partagé — logo haut-gauche + hamburger dropdown droite ===== */
+.site-header {
+  position: relative;
+  display: flex;
+  /* noms de pages ALIGNÉS EN HAUT du logo (demande client 2026-10-19),
+     pas centrés verticalement */
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 1.1rem 1.5rem 0.9rem;
+}
+.logo-lien { display: block; line-height: 0; flex-shrink: 0; }
+.logo { display: block; transition: transform 0.2s; }
+.logo-lien:hover .logo { transform: scale(1.04); }
+.header-titres { flex: 1; min-width: 0; }
+.site-titre {
+  font-family: var(--font-titre);
+  font-size: clamp(1.05rem, 2.4vw, 1.55rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+.menu-wrap { flex-shrink: 0; position: relative; }
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+  transition: opacity 0.2s;
+}
+.menu-toggle:hover span { background: var(--accent); }
+/* dropdown ancré sur le header : il retombe depuis la barre de séparation et la masque */
+.nav {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  /* just under the toggle button: .menu-wrap is the positioning context, so
+     100% is the button's own bottom edge (client request 2026-10-19). */
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 30;
+  min-width: 11.5rem;
+  background: var(--ardoise);
+  border: 1px solid rgba(245, 239, 228, 0.18);
+  padding: 0.6rem;
+  gap: 0.1rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+.nav.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.nav a {
+  font-family: var(--font-titre);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid transparent;
+}
+.nav a:hover { color: var(--accent); }
+/* ===== corps de page ===== */
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  line-height: 1.7;
+}
+.main p { margin-bottom: 1.1em; }
+.main h2 {
+  font-family: var(--font-titre);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: lowercase;
+  margin: 2.2em 0 1em;
+  color: var(--accent);
+}
+.main h3 {
+  font-family: var(--font-titre);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin: 1.8em 0 0.5em;
+}
+.main a { color: var(--accent); text-decoration: none; }
+.main a:hover { text-decoration: underline; }
+.main ul { list-style: none; padding: 0; }
+.main ul li {
+  margin: 0.9em 0;
+  padding-bottom: 0.9em;
+  border-bottom: 1px solid rgba(245, 239, 228, 0.14);
+}
+.main ul li:last-child { border-bottom: none; }
+.provisoire, .note {
+  color: var(--dim);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+.note { margin-top: 1.2em; }
+
+/* ===== page 1 — esprit ===== */
+
+/* grille éditoriale texte | photo (même montage que l'accueil du site de ref) */
+.esprit-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 2fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 2.4rem;
+}
+.esprit-texte { display: flex; flex-direction: column; gap: 1.1rem; line-height: 1.7; }
+.esprit-texte p { margin: 0; }
+.esprit-image { margin: 0; }
+.esprit-image img { width: 100%; height: auto; display: block; }
+
+/* onglets des 3 contenus — 3 summaries sur une ligne, contenu sous la ligne, un seul ouvert à la fois */
+.acc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2.2rem; margin-bottom: 0.4rem; }
+.acc-item summary {
+  font-family: var(--font-titre);
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 0 0.75rem;
+  cursor: pointer;
+  list-style: none;
+  border-bottom: 1px solid rgba(245, 239, 228, 0.18);
+}
+.acc-item summary::-webkit-details-marker { display: none; }
+.acc-item[open] summary { color: var(--accent); border-bottom-color: var(--accent); }
+.acc-contenu { padding: 1.2rem 0 0.4rem; min-height: 3rem; }
+.acc-contenu p { margin: 0 0 0.9rem; line-height: 1.7; }
+.acc-contenu > :last-child { margin-bottom: 0; }
+.acc-contenu blockquote {
+  border-left: 2px solid var(--accent);
+  margin: 0.9rem 0;
+  padding-left: 1rem;
+  color: var(--dim);
+  font-style: italic;
+}
+
+.logo-partenaires {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  border-top: 1px solid rgba(245, 239, 228, 0.18);
+  margin: 2.2rem 0;
+  padding-top: 1.4rem;
+}
+.logo-cpo { display: flex; align-items: center; gap: 0.9rem; }
+.logo-cpo .logo { line-height: 0; }
+.logo-ministere { display: flex; align-items: center; gap: 1rem; }
+.mention-bicentenaire { font-size: 0.92rem; max-width: 46ch; color: var(--dim); }
+.logo-bicentenaire { width: 12rem; height: auto; display: block; }
+
+@media (max-width: 700px) {
+  .esprit-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .esprit-image { order: -1; }
+  .acc { grid-template-columns: 1fr; }
+  .logo-partenaires, .logo-ministere { flex-wrap: wrap; }
+}
+
+/* vidéo placeholder */
+.video-ph { margin: 1.4em 0; }
+.video-cadre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  border: 1px dashed rgba(245, 239, 228, 0.4);
+  font-size: 2rem;
+  color: var(--dim);
+}
+.video-ph figcaption { margin-top: 0.6rem; color: var(--dim); font-size: 0.88rem; }
+
+/* ===== page 5 — expositions : image fixe à gauche + liste à droite + popover visuel =====
+   (retour client 2026-10-19 : le visuel de gauche reste FIXE ; au clic sur une
+   expo, son visuel APPARAÎT en popover et se REFERME au clic ailleurs) */
+.main-large { max-width: 70rem; }
+.expo-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(300px, 1.1fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-top: 1.8rem;
+}
+/* image fixe (fille au scotch) : ne change jamais au clic */
+.expo-fixe { position: sticky; top: 1.2rem; min-width: 0; }
+.expo-fixe img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--ardoise);
+}
+/* légende sous la photo de gauche */
+.expo-legende {
+  margin: 0.6rem 0 0;
+  color: var(--dim);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.expo-liste { min-width: 0; }
+.expo-liste ol { list-style: none; margin: 0; padding: 0; }
+.expo-liste li { border-bottom: 1px solid rgba(245, 239, 228, 0.14); }
+.expo-liste li:first-child { border-top: 1px solid rgba(245, 239, 228, 0.14); }
+.expo-item { display: block; }
+.expo-item > summary {
+  display: block;
+  padding: 0.75rem 0.3rem;
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.15s;
+}
+.expo-item > summary::-webkit-details-marker { display: none; }
+.expo-item > summary:hover { background: rgba(250, 182, 23, 0.07); }
+.expo-item > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+.expo-nom { display: block; font-family: var(--font-titre); letter-spacing: 0.04em; }
+.expo-item[open] .expo-nom { color: var(--accent); }
+.expo-meta { color: var(--dim); font-size: 0.82rem; white-space: nowrap; }
+/* le visuel s'ouvre sous le titre, comme sur la page collection */
+.expo-visuel {
+  display: grid;
+  justify-items: start;
+  padding: 0 0.3rem 1rem;
+}
+.expo-visuel img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid rgba(250, 182, 23, 0.3);
+}
+.expo-void {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border: 1px dashed rgba(245, 239, 228, 0.3);
+  color: var(--dim);
+  font-size: 0.85rem;
+}
+@media (max-width: 700px) {
+  .expo-layout { grid-template-columns: 1fr; gap: 1.2rem; }
+  .expo-fixe { position: static; }
+  .expo-meta { white-space: normal; }
+}
+
+/* ===== page 10 — contact ===== */
+.coordonnees { font-style: normal; line-height: 1.9; margin-bottom: 1.5em; }
+.form-contact { display: flex; flex-direction: column; gap: 1.1rem; max-width: 30rem; }
+.form-contact label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.95rem; }
+.form-contact input,
+.form-contact textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: rgba(20, 23, 26, 0.45);
+  border: 1px solid rgba(245, 239, 228, 0.3);
+  padding: 0.55rem 0.7rem;
+  border-radius: 0;
+  resize: vertical;
+}
+.form-contact input:focus,
+.form-contact textarea:focus { outline: 1px solid var(--accent); }
+.form-contact button {
+  align-self: flex-start;
+  font-family: var(--font-titre);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: var(--ardoise);
+  background: var(--accent);
+  border: none;
+  padding: 0.65rem 1.8rem;
+  cursor: pointer;
+}
+.form-contact button:hover { background: var(--ink); }
+
+.site-footer {
+  padding: 1.6rem 2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: var(--dim);
+}
+
+/* ===== page 1 — objet (ex-esprit) : nouveau layout design PDF page 4 ===== */
+.objet-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.2fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+.objet-col-texte { display: flex; flex-direction: column; gap: 1.1rem; line-height: 1.7; }
+.objet-col-texte p { margin: 0; }
+/* ligne des trois liens légers (remplace la barre des 3 points — retour 2026-10-19) */
+.objet-liens { display: flex; gap: 1.6rem; margin-top: 0.3rem; }
+.objet-lien {
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  padding: 0;
+  font-family: var(--font-titre);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.objet-lien:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.objet-lien.active { color: var(--accent); }
+/* panneaux de contenu sur place (fermés à l'arrivée : le pavé est visible) */
+.objet-panneau {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(245, 239, 228, 0.14);
+}
+.objet-panneau h2 {
+  font-family: var(--font-titre);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: lowercase;
+  margin: 0 0 0.8em;
+  color: var(--accent);
+}
+.objet-panneau blockquote {
+  border-left: 2px solid var(--accent);
+  margin: 0.9rem 0;
+  padding-left: 1rem;
+  color: var(--dim);
+  font-style: italic;
+}
+.objet-col-image { margin: 0; }
+.objet-image-principale { margin: 0; }
+.objet-image-principale img { width: 100%; height: auto; display: block; }
+
+@media (max-width: 700px) {
+  .objet-layout { grid-template-columns: 1fr; gap: 1.4rem; }
+  .objet-col-image { order: -1; }
+  .objet-liens { gap: 1.1rem; }
+}
+
+/* ===== page 2 — missions : texte fixe haut + 4 pavés sur rectangle jaune =====
+   (retour client 2026-10-19 : un petit rectangle jaune derrière les pavés,
+   qui déborde INÉGALLEMENT et les lie entre eux ; les pavés sont opaques) */
+.missions-intro { margin-bottom: 2.2rem; max-width: 62rem; }
+.missions-intro p + p { margin-top: 1.1em; }
+.missions-jaune {
+  position: relative;
+  max-width: 50rem;
+  margin: 0 0 1.5rem;
+}
+/* le rectangle jaune — offsets NÉGATIFS ASYMÉTRIQUES = débordé inégal */
+.missions-jaune::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: -28px;
+  right: 36px;
+  bottom: -10px;
+  background: var(--accent);
+  z-index: 0;
+}
+.mission-pave {
+  position: relative;
+  z-index: 1;
+  background: var(--bg); /* opaque : le jaune ne transparaît pas dans le texte */
+  padding: 1.3rem 1.6rem 1.2rem;
+  margin: 0 0 1.15rem;
+}
+.mission-pave:last-child { margin-bottom: 0; }
+.mission-pave h3 {
+  font-family: var(--font-titre);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.8em;
+  color: var(--ink);
+}
+.mission-pave ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.mission-pave li {
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+.mission-pave li::marker { color: var(--accent); }
+@media (max-width: 700px) {
+  .missions-jaune::before {
+    top: -10px; left: -8px; right: 12px; bottom: -8px; /* débordé réduit sur mobile */
+  }
+  .mission-pave { padding: 1.1rem 1.1rem 1rem; }
+}
+/* ===== page 3 — agenda : images en ligne, contenu au clic ===== */
+.agenda-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.agenda-item {
+  flex: 0 0 auto;
+  border: none;
+  padding: 0;
+  width: 160px;
+}
+.agenda-item summary {
+  list-style: none;
+  cursor: pointer;
+}
+.agenda-item summary::-webkit-details-marker { display: none; }
+.agenda-image-frame {
+  display: block;
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+  border: 3px solid rgba(250, 182, 23, 0.35);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.agenda-image-frame:hover,
+.agenda-item[open] .agenda-image-frame {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(250, 182, 23, 0.4);
+}
+.agenda-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.agenda-info, .agenda-titre, .agenda-meta { display: none; }
+.agenda-contenu {
+  display: block;
+  width: 320px;
+  padding: 0.8rem 0;
+  line-height: 1.7;
+  font-size: 0.92rem;
+}
+.agenda-contenu p { margin: 0 0 0.6rem; }
+
+@media (max-width: 600px) {
+  .agenda-item { width: 120px; }
+  .agenda-image-frame { width: 120px; height: 120px; }
+  .agenda-contenu { width: 240px; }
+}
+
+/* ===== page 4 — collection : accordéon mono-ouvert ===== */
+.collection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 1.5rem 0;
+}
+.collection-item {
+  border-bottom: 1px solid rgba(245, 239, 228, 0.1);
+}
+.collection-item summary {
+  font-family: var(--font-titre);
+  font-size: 1.02rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  padding: 0.7rem 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.15s;
+}
+.collection-item summary::-webkit-details-marker { display: none; }
+.collection-item summary:hover { background: rgba(250, 182, 23, 0.05); }
+.collection-item[open] summary { color: var(--accent); }
+.collection-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.6rem;
+  padding: 0.6rem 0.5rem 1rem;
+}
+.collection-images img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border: 2px solid rgba(250, 182, 23, 0.3);
+  transition: border-color 0.2s;
+}
+.collection-images img:hover { border-color: var(--accent); }
+
+/* accordéon JS : collection — fermer l'item ouvert avant d'en ouvrir un autre */
+
+/* (ancien layout 50/50 expositions, remplacé par .expo-layout — voir plus haut) */
+
+/* ===== page 6 — collecte ===== */
+.collecte-content { max-width: 40rem; }
+.collecte-content h2 {
+  font-family: var(--font-titre);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: lowercase;
+  margin: 1.5em 0 0.8em;
+  color: var(--accent);
+}
+
+/* ===== page 7 — soutien ===== */
+.soutien-content { max-width: 40rem; }
+.soutien-content ul { list-style: none; padding: 0; margin: 0 0 1.5em; }
+.soutien-content li {
+  margin: 0.8em 0;
+  padding-bottom: 0.8em;
+  border-bottom: 1px solid rgba(245, 239, 228, 0.1);
+  line-height: 1.6;
+}
+.soutien-content li:last-child { border-bottom: none; }
+
+/* ===== page 8 — fabrique : accordéon mono-ouvert ===== */
+.fabrique-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 1.5rem 0;
+}
+.fabrique-item {
+  border-bottom: 1px solid rgba(245, 239, 228, 0.1);
+}
+.fabrique-item summary {
+  font-family: var(--font-titre);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.15s;
+}
+.fabrique-item summary::-webkit-details-marker { display: none; }
+.fabrique-item summary:hover { background: rgba(250, 182, 23, 0.05); }
+.fabrique-item[open] summary { color: var(--accent); }
+.fabrique-contenu { padding: 0.5rem 0.5rem 1rem; line-height: 1.7; }
+.fabrique-contenu p { margin: 0 0 0.6rem; }
+.fabrique-contenu ul { list-style: none; padding: 0; margin: 0.5em 0; }
+.fabrique-contenu li { margin: 0.5em 0; padding-left: 0.5rem; border-left: 2px solid rgba(250, 182, 23, 0.3); }
+
+/* ===== responsive : menu nav plus long ===== */
+.nav {
+  min-width: 14rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.nav a {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.7rem;
+}
+
+/* === design-fidelity override (auto-generated) === */
+/* To achieve the horizontal card layout, the container must be a flex row with gaps between cards. */
+.missions-jaune {
+  display: flex;
+  flex-direction: row;
+  gap: 1.6rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+/* Each card must be a distinct, opaque block with a thin yellow border, and the layout must be a horizontal row. */
+.mission-pave {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+  padding: 1.3rem 1.6rem 1.2rem;
+  margin: 0;
+  width: 270px;
+  height: 480px;
+  border: 1px solid var(--accent);
+}
+/* The large yellow rectangle behind the cards is not part of the design; it must be removed. */
+.missions-jaune::before {
+  content: none;
+}
+/* === end design-fidelity override === */
+
+/* === design-fidelity override (auto-generated) === */
+/* A+B+C (org-4zy7.6, operator spec):
+   A. thin outline on 3 sides + a THICK bar on one side, offset to overhang a corner
+   B. text stays inside the frame: each card collapses to a summary, click to expand
+   C. the row spans the full container width (reset the original 50rem cap) */
+
+.missions-jaune {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.2rem;              /* room for the overhanging bars between cards */
+  max-width: none;          /* C: undo .missions-jaune { max-width: 50rem } */
+  width: 100%;
+  align-items: stretch;    /* all four frames the same height, as in the design */
+  grid-auto-rows: 1fr;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  position: relative;
+}
+.missions-jaune::before { content: none; }   /* the old shared yellow rectangle */
+
+.mission-pave {
+  position: relative;
+  z-index: 1;
+  background: #000;          /* design uses a near-black card interior */
+  margin: 0;
+  padding: 1.2rem 1.4rem 1.1rem;
+  min-width: 0;              /* let text wrap inside the grid track */
+  align-self: stretch;
+  /* Portrait proportion when collapsed; grows with the row when a card is
+     expanded so the list can never spill outside the frame. */
+  min-height: 20rem;
+  height: auto;
+  overflow: visible;
+  border-top: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
+  border-left: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+}
+
+/* --- A: the THICK accent bar ------------------------------------------------
+   One ::after per card, offset vertically so it overhangs a corner. Cards 1-3
+   carry it on the right (card 1 top-aligned, 2-3 bottom-aligned); card 4 on
+   the left. Width comes from the measured design (~11-17px). */
+.mission-pave::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -0.5rem;            /* sits just outside the thin outline */
+  width: 0.5rem;
+  background: var(--accent);
+  z-index: -1;
+}
+/* Card 1: bar overhangs the TOP-RIGHT corner (starts above, ends above the base). */
+.mission-pave:nth-child(1)::after { top: -1rem; bottom: 10%; }
+/* Cards 2-3: bar overhangs the BOTTOM-RIGHT corner. */
+.mission-pave:nth-child(2)::after,
+.mission-pave:nth-child(3)::after { top: 10%; bottom: -1rem; }
+/* Card 4: mirrored to the LEFT. */
+.mission-pave:nth-child(4)::after {
+  left: -0.5rem; right: auto;
+  top: 10%; bottom: -1rem;
+}
+
+/* --- B: keep the text inside the frame ------------------------------------- */
+.mission-pave h3 {
+  font-family: var(--font-titre);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.8em;
+  color: var(--ink);
+}
+/* The list becomes a collapsible disclosure: the card shows a teaser and the
+   reader clicks the summary to expand. Native <details>, no JS. */
+.mission-pave details { margin: 0; }
+.mission-pave details > summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-titre);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 0.35rem 0;
+  border-top: 1px solid rgba(245, 239, 228, 0.25);
+}
+.mission-pave details > summary::-webkit-details-marker { display: none; }
+.mission-pave details > summary::after { content: " +"; color: var(--accent); }
+.mission-pave details[open] > summary::after { content: " –"; }
+.mission-pave details ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.mission-pave li { line-height: 1.5; font-size: 0.92rem; }
+.mission-pave li::marker { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .missions-jaune { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .missions-jaune { grid-template-columns: minmax(0, 1fr); }
+}
+/* === end design-fidelity override === */
