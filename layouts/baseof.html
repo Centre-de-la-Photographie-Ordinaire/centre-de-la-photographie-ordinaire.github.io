@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{{ "style.css" | relURL }}" />
 </head>
 <body>
-{{ partial "header.html" }}
+{{ partial "header.html" . }}
 {{ block "main" . }}{{ end }}
 <footer class="site-footer">
   <span>centre de la photographie ordinaire · brouillons</span>
@@ -44,15 +44,45 @@
     if (e.key === 'Escape') close();
   });
 })();
-/* accordéon (.acc-item) : un seul panneau ouvert à la fois */
+/* accordéon (.acc-item / .collection-item / .fabrique-item / .expo-item) :
+   un seul panneau ouvert à la fois.
+
+   Ouvrir un panneau referme le précédent ; si ce précédent était AU-DESSUS, sa
+   fermeture retire de la hauteur et le panneau qu'on vient d'ouvrir remonte
+   hors de l'écran (bug constaté sur expositions/ : le titre cliqué disparaissait
+   au-dessus de la page). On le ramène donc dans la vue — mais seulement s'il en
+   est effectivement sorti, pour ne pas contrarier le défilement normal. */
 (function () {
-  var items = Array.prototype.slice.call(document.querySelectorAll('.acc-item'));
-  if (!items.length) return;
-  items.forEach(function (d) {
-    d.addEventListener('toggle', function () {
-      if (d.open) items.forEach(function (o) { if (o !== d) o.open = false; });
+  function makeAccordion(sel) {
+    var items = Array.prototype.slice.call(document.querySelectorAll(sel));
+    if (!items.length) return;
+    items.forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (!d.open) return;
+        items.forEach(function (o) { if (o !== d) o.open = false; });
+        // Les fermetures ci-dessus ont pu décaler la mise en page : laisser le
+        // navigateur la recalculer avant de vérifier la position.
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            var s = d.querySelector('summary');
+            var r = (s || d).getBoundingClientRect();
+            var marge = 12;
+            if (r.top < marge) {
+              window.scrollBy(0, r.top - marge);
+            } else if (r.bottom > window.innerHeight - marge) {
+              window.scrollBy(0, Math.min(r.bottom - (window.innerHeight - marge),
+                                         r.top - marge));
+            }
+          });
+        });
+      });
     });
-  });
+  }
+  makeAccordion('.acc-item');
+  makeAccordion('.agenda-item');
+  makeAccordion('.collection-item');
+  makeAccordion('.fabrique-item');
+  makeAccordion('.expo-item');
 })();
 </script>
 </body>

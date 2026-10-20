@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>diagnostic · centre de la photographie ordinaire</title>
+<style>
+  :root { --bg:#2A2E33; --ink:#F5EFE4; --accent:#FAB617; --ardoise:#14171A; }
+  * { margin:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; padding-bottom:4rem; }
+  .bar {
+    position:sticky; top:0; z-index:9;
+    background:var(--ardoise); padding:.7rem 1.2rem;
+    display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap;
+    border-bottom:2px solid var(--accent);
+  }
+  .bar h1 { font-size:1rem; letter-spacing:.15em; text-transform:lowercase; }
+  .bar p { font-size:.8rem; opacity:.65; }
+  .page { border-bottom:1px solid rgba(245,239,228,.15); }
+  .page > .label {
+    display:flex; align-items:baseline; gap:.8rem;
+    padding:.55rem 1.2rem; background:rgba(20,23,26,.6);
+    font-size:.85rem; letter-spacing:.06em;
+  }
+  .page > .label .n { color:var(--accent); font-weight:700; min-width:1.4em; }
+  .page > .label code { color:var(--ink); opacity:.55; font-size:.75rem; margin-left:auto; }
+  iframe {
+    display:block; width:100%; height:78vh;
+    border:0; background:var(--bg);
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>diagnostic — revue visuelle 2026-10-19</h1>
+  <p>chaque cadre est la page réelle (interactive). commenter chaque numéro.</p>
+</div>
+
+<div class="page"><div class="label"><span class="n">1</span> accueil · brouillons <code>/</code></div>
+  <iframe src="/" title="accueil"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">2</span> page vitrine · nouveau diaporama <code>/experiments/nouveau-diaporama/</code></div>
+  <iframe src="/experiments/nouveau-diaporama/" title="page vitrine"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">3</span> page 1 · objet <code>/objet/</code></div>
+  <iframe src="/objet/" title="objet"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">4</span> page 2 · missions <code>/missions/</code></div>
+  <iframe src="/missions/" title="missions"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">5</span> page 3 · agenda <code>/agenda/</code></div>
+  <iframe src="/agenda/" title="agenda"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">6</span> page 4 · collection <code>/collection/</code></div>
+  <iframe src="/collection/" title="collection"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">7</span> page 5 · expositions <code>/expositions/</code></div>
+  <iframe src="/expositions/" title="expositions"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">8</span> page 6 · collecte <code>/collecte/</code></div>
+  <iframe src="/collecte/" title="collecte"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">9</span> page 7 · soutien <code>/soutien/</code></div>
+  <iframe src="/soutien/" title="soutien"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">10</span> page 8 · fabrique <code>/fabrique/</code></div>
+  <iframe src="/fabrique/" title="fabrique"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">11</span> page 10 · contact <code>/contact/</code></div>
+  <iframe src="/contact/" title="contact"></iframe></div>
+
+<div class="page"><div class="label"><span class="n">12</span> diaporama (archive) <code>/experiments/diaporama/</code></div>
+  <iframe src="/experiments/diaporama/" title="diaporama archive"></iframe></div>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>experiment · variations de la fonte Spectral</title>
+<meta name="description" content="Experiment : variations de la fonte Spectral — la famille complète (ExtraLight à ExtraBold) et les italiques, corps de texte de la charte graphique web." />
+<style>
+  /* Spectral auto-hébergée (OFL) — 7 graisses + italiques */
+  @font-face { font-family: "Spectral"; src: url("Spectral-ExtraLight.woff2") format("woff2"), url("Spectral-ExtraLight.woff") format("woff"); font-weight: 200; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-Light.woff2") format("woff2"), url("Spectral-Light.woff") format("woff"); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-Regular.woff2") format("woff2"), url("Spectral-Regular.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-Medium.woff2") format("woff2"), url("Spectral-Medium.woff") format("woff"); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-SemiBold.woff2") format("woff2"), url("Spectral-SemiBold.woff") format("woff"); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-Bold.woff2") format("woff2"), url("Spectral-Bold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-ExtraBold.woff2") format("woff2"), url("Spectral-ExtraBold.woff") format("woff"); font-weight: 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-ExtraLightItalic.woff2") format("woff2"), url("Spectral-ExtraLightItalic.woff") format("woff"); font-weight: 200; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-LightItalic.woff2") format("woff2"), url("Spectral-LightItalic.woff") format("woff"); font-weight: 300; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-RegularItalic.woff2") format("woff2"), url("Spectral-RegularItalic.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-MediumItalic.woff2") format("woff2"), url("Spectral-MediumItalic.woff") format("woff"); font-weight: 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-SemiBoldItalic.woff2") format("woff2"), url("Spectral-SemiBoldItalic.woff") format("woff"); font-weight: 600; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-BoldItalic.woff2") format("woff2"), url("Spectral-BoldItalic.woff") format("woff"); font-weight: 700; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Spectral"; src: url("Spectral-ExtraBoldItalic.woff2") format("woff2"), url("Spectral-ExtraBoldItalic.woff") format("woff"); font-weight: 800; font-style: italic; font-display: swap; }
+
+  :root {
+    --bg: #2A2E33;
+    --ink: #F5EFE4;
+    --accent: #FAB617;
+    --orange: #F37120;
+    --encre: #1B4F8C;
+    --ardoise: #14171A;
+    --dim: rgba(245, 239, 228, 0.55);
+    --ft: "DINdong", "DIN", "DIN Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 52rem; margin: 0 auto; }
+  h1 {
+    font-family: var(--ft);
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    margin-bottom: 0.4rem;
+  }
+  .intro { color: var(--dim); max-width: 74ch; margin-bottom: 2rem; }
+  .section-titre {
+    font-family: var(--ft);
+    font-size: 1.05rem;
+    letter-spacing: 0.25em;
+    text-transform: lowercase;
+    color: var(--accent);
+    margin: 2.6rem 0 1rem;
+  }
+  .note { color: var(--dim); font-size: 0.88rem; margin-top: 0.8rem; max-width: 74ch; }
+  .fin { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(245,239,228,0.18); color: var(--dim); font-size: 0.9rem; max-width: 74ch; }
+
+  .variant { margin-bottom: 1.6rem; }
+  .vlabel {
+    font-family: var(--ft);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: lowercase;
+    margin-bottom: 0.5rem;
+  }
+  .vlabel small { color: var(--dim); letter-spacing: 0.05em; text-transform: none; margin-left: 0.8rem; }
+  .mock {
+    padding: 1.4rem 1.2rem;
+    border: 1px solid rgba(245, 239, 228, 0.16);
+    background: rgba(20, 23, 26, 0.35);
+    font-family: "Spectral", Georgia, serif;
+    color: var(--ink);
+    overflow-x: auto;
+  }
+
+  /* grille des graisses */
+  .grid-poids { display: grid; gap: 0.8rem; }
+  .poids-cell { border: 1px solid rgba(245,239,228,0.16); padding: 1.1rem 1.2rem; display: flex; flex-wrap: wrap; gap: 0 1.6rem; align-items: baseline; }
+  .poids-cell .cap { font-family: var(--ft); font-size: 0.72rem; letter-spacing: 0.15em; color: var(--dim); text-transform: lowercase; flex-basis: 100%; margin-bottom: 0.7rem; }
+  .poids-cell .texte { font-size: 1.55rem; line-height: 1.15; }
+  .poids-cell .num { font-family: var(--ft); font-size: 0.8rem; color: var(--accent); margin-left: auto; align-self: center; }
+
+  @media (max-width: 700px) { .poids-cell .num { margin-left: 0; margin-top: 0.5rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>variations de la fonte : spectral</h1>
+  <p class="intro">Spectral est le corps de texte de la charte graphique web du site, aujourd'hui chargée depuis Google Fonts. Cette page en montre les variations — la famille complète (sept graisses, de ExtraLight à ExtraBold) et leurs italiques — désormais auto-hébergée depuis les fichiers <code>fonts/Spectral/</code> (licence SIL Open Font License). Chaque variation est montrée dans le même support de specimen, sur le gabarit des pages « logotype + titre » et « font-dindong ».</p>
+
+  <h2 class="section-titre">1 · la famille, sept graisses</h2>
+  <p class="note">Du plus léger (200, ExtraLight) au plus lourd (800, ExtraBold). Spectral est une sérif contemporaine pensée pour le texte long ; sa graisse la plus courante au site est le regular (400), parfois le medium (500).</p>
+  <div class="grid-poids">
+    <div class="poids-cell"><p class="cap">extra light · 200</p><p class="texte" style="font-weight:200">centre de la photographie ordinaire</p><span class="num">200</span></div>
+    <div class="poids-cell"><p class="cap">light · 300</p><p class="texte" style="font-weight:300">centre de la photographie ordinaire</p><span class="num">300</span></div>
+    <div class="poids-cell"><p class="cap">regular · 400</p><p class="texte" style="font-weight:400">centre de la photographie ordinaire</p><span class="num">400</span></div>
+    <div class="poids-cell"><p class="cap">medium · 500</p><p class="texte" style="font-weight:500">centre de la photographie ordinaire</p><span class="num">500</span></div>
+    <div class="poids-cell"><p class="cap">semi bold · 600</p><p class="texte" style="font-weight:600">centre de la photographie ordinaire</p><span class="num">600</span></div>
+    <div class="poids-cell"><p class="cap">bold · 700</p><p class="texte" style="font-weight:700">centre de la photographie ordinaire</p><span class="num">700</span></div>
+    <div class="poids-cell"><p class="cap">extra bold · 800</p><p class="texte" style="font-weight:800">centre de la photographie ordinaire</p><span class="num">800</span></div>
+  </div>
+
+  <h2 class="section-titre">2 · les italiques</h2>
+  <p class="note">Chaque graisse a son italique. Deux usages ressortent : l'accent d'un mot (regular italic, comme la charte l'utilise) et l'emphase forte (bold italic).</p>
+  <div class="variant">
+    <p class="vlabel">regular italic <small>emphase discrète en cours de texte</small></p>
+    <div class="mock" style="font-size:1.35rem; font-style:italic; font-weight:400">3 000 000 de photographies de famille, un patrimoine vernaculaire fragile que le centre sauvegarde.</div>
+  </div>
+  <div class="variant">
+    <p class="vlabel">bold italic <small>emphase forte</small></p>
+    <div class="mock" style="font-size:1.35rem; font-style:italic; font-weight:700">le commun des mortels : la collection des photographies devenues anonymes.</div>
+  </div>
+  <div class="variant">
+    <p class="vlabel">extra bold <small>graisse pour un titre long en sérif</small></p>
+    <div class="mock" style="font-size:1.5rem; font-style:normal; font-weight:800; line-height:1.2">changer notre rapport aux photographies que personne n'a faites « pour l'histoire ».</div>
+  </div>
+
+  <h2 class="section-titre">3 · graisse × italique en regard</h2>
+  <p class="note">Même phrase déclinée sur plusieurs graisses et styles, pour juger de la plage du caractère : légèreté du light, neutralité du regular, présence du bold.</p>
+  <div class="grid-poids">
+    <div class="poids-cell"><p class="cap">light · 300</p><p class="texte" style="font-weight:300">photographie ordinaire</p></div>
+    <div class="poids-cell"><p class="cap">light italic</p><p class="texte" style="font-weight:300; font-style:italic">photographie ordinaire</p></div>
+    <div class="poids-cell"><p class="cap">regular · 400</p><p class="texte" style="font-weight:400">photographie ordinaire</p></div>
+    <div class="poids-cell"><p class="cap">regular italic</p><p class="texte" style="font-weight:400; font-style:italic">photographie ordinaire</p></div>
+    <div class="poids-cell"><p class="cap">medium · 500</p><p class="texte" style="font-weight:500">photographie ordinaire</p></div>
+    <div class="poids-cell"><p class="cap">bold · 700</p><p class="texte" style="font-weight:700">photographie ordinaire</p></div>
+    <div class="poids-cell"><p class="cap">extra bold · 800</p><p class="texte" style="font-weight:800">photographie ordinaire</p></div>
+  </div>
+
+  <h2 class="section-titre">4 · petites tailles vs grandes tailles</h2>
+  <p class="note">Une sérif de texte : le regular reste lisible en petit (corps courant du site) comme en grand (retombée graphique).</p>
+  <div class="variant">
+    <p class="vlabel">petite taille <small>corps courant du site</small></p>
+    <div class="mock" style="font-size:0.95rem; font-weight:400">Simorre 32420 · le commun des mortels — 3 000 000 de photographies de famille, classées en plus de 400 thèmes.</div>
+  </div>
+  <div class="variant">
+    <p class="vlabel">grande taille <small>retombée graphique</small></p>
+    <div class="mock" style="font-size:2.4rem; font-weight:400; line-height:1.2">centre de la photographie ordinaire</div>
+  </div>
+
+  <p class="fin">À juger avec le centre : quelle graisse et quel italique servir pour le texte du site, et si Spectral doit être auto-hébergée (aujourd'hui chargée via Google Fonts) ou rester sur le CDN. Les fichiers <code>fonts/Spectral/</code> (sources .ttf, OFL) ne sont pas versionnés ; seuls les .woff/.woff2 de cette page sont servis depuis <code>static/experiments/font-spectral/</code>.</p>
+</div>
+</body>
+</html>

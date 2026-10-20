@@ -5,8 +5,7 @@
     {{ partial "logo.html" (dict "size" 56) }}
   </a>
   <div class="header-titres">
-    <p class="site-titre">centre de la photographie ordinaire</p>
-    <p class="site-lieu">Simorre 32420</p>
+    <p class="site-titre">{{ if .IsHome }}centre de la photographie ordinaire{{ else }}{{ .Title }}{{ end }}</p>
   </div>
   <div class="menu-wrap">
     <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="site-nav">
@@ -14,11 +13,15 @@
     </button>
     <nav id="site-nav" class="nav" aria-label="navigation principale">
       <a href="/">accueil</a>
-      <a href="/esprit/">esprit</a>
-      <a href="/missions/">missions</a>
-      <a href="/expositions/">expositions</a>
-      <a href="/contact/">contact</a>
+      <a href="/objet/">page 1 · objet</a>
+      <a href="/missions/">page 2 · missions</a>
+      <a href="/agenda/">page 3 · agenda</a>
+      <a href="/collection/">page 4 · collection</a>
+      <a href="/expositions/">page 5 · expositions</a>
+      <a href="/collecte/">page 6 · collecte</a>
+      <a href="/soutien/">page 7 · soutien</a>
+      <a href="/fabrique/">page 8 · fabrique</a>
+      <a href="/contact/">page 10 · contact</a>
     </nav>
   </div>
 </header>
-<div class="barre-separation" role="separator"></div>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>experiment · variations de la fonte DINdong</title>
+<meta name="description" content="Experiment : variations de la fonte DINdong — casse, accents pivotés, ligatures inclusives, jeux stylistiques, chiffres et ponctuation mélangés, éléments gardés de la fonte d'origine." />
+<style>
+  @font-face {
+    font-family: "DINdong";
+    src: url("DINdong.woff2") format("woff2"),
+         url("DINdong.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --bg: #2A2E33;
+    --ink: #F5EFE4;
+    --accent: #FAB617;
+    --orange: #F37120;
+    --encre: #1B4F8C;
+    --ardoise: #14171A;
+    --dim: rgba(245, 239, 228, 0.55);
+    --ft: "DINdong", "DIN", "DIN Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Spectral", Georgia, "Times New Roman", serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 52rem; margin: 0 auto; }
+  h1 {
+    font-family: var(--ft);
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    margin-bottom: 0.4rem;
+  }
+  .intro { color: var(--dim); max-width: 74ch; margin-bottom: 2rem; }
+  .section-titre {
+    font-family: var(--ft);
+    font-size: 1.05rem;
+    letter-spacing: 0.25em;
+    text-transform: lowercase;
+    color: var(--accent);
+    margin: 2.6rem 0 1rem;
+  }
+  .note { color: var(--dim); font-size: 0.88rem; margin-top: 0.8rem; max-width: 74ch; }
+  .fin { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(245,239,228,0.18); color: var(--dim); font-size: 0.9rem; max-width: 74ch; }
+
+  /* chaque variation montrée dans un même support : une bande de specimen sur fond gris */
+  .variant { margin-bottom: 1.6rem; }
+  .vlabel {
+    font-family: var(--ft);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: lowercase;
+    margin-bottom: 0.5rem;
+  }
+  .vlabel small { color: var(--dim); letter-spacing: 0.05em; text-transform: none; margin-left: 0.8rem; }
+  .mock {
+    padding: 1.4rem 1.2rem;
+    border: 1px solid rgba(245, 239, 228, 0.16);
+    background: rgba(20, 23, 26, 0.35);
+    font-family: var(--ft);
+    color: var(--ink);
+    overflow-x: auto;
+  }
+
+  /* partie 1 : grille des capitales / bas-de-casse */
+  .grid-casse { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .casse-cell { border: 1px solid rgba(245,239,228,0.16); padding: 1.1rem 1rem; }
+  .casse-cell .cap { font-size: 0.8rem; color: var(--dim); margin-bottom: 0.6rem; letter-spacing: 0.08em; }
+  .casse-cell .spec { font-family: var(--ft); line-height: 1.2; }
+
+  /* grille des jeux stylistiques (point médiant alternatif) */
+  .grid-ss { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+  .ss-cell { border: 1px solid rgba(245,239,228,0.16); padding: 1.1rem 1rem; align-self: stretch; }
+  .ss-cell .cap { font-size: 0.8rem; color: var(--dim); margin-bottom: 0.5rem; }
+  .ss-cell .big { font-family: var(--ft); font-size: 2.4rem; line-height: 1; }
+
+  @media (max-width: 700px) { .grid-casse { grid-template-columns: 1fr; } .grid-ss { grid-template-columns: repeat(2,1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>variations de la fonte : din&#8201;dong</h1>
+  <p class="intro">DINdong est un re-dessin « crapuleux » de la Din fette Breitschrift (Peter Wiegel), qui rejoue pour mieux déjouer la norme DIN. Les bas-de-casse ont été renversés à 90°, les capitales gardent leurs proportions d'origine : la fonte n'est pas regular, mais autant extended que condensée. Elle porte des ligatures et glyphes inclusifs, des éléments de liaison et des alternatives au point médiant (·). Cette page montre les variations que permet la fonte, reprises de sa fiche technique et de son README — chaque variation est montrée dans le même support de specimen.</p>
+
+  <h2 class="section-titre">1 · casse et proportions</h2>
+  <p class="note">Capitales (proportions d'origine, étirées) et bas-de-casse (renversés à 90°, condensés). Le jeu « autant extended que condensé » vise à dégenrer, typographiquement, le caractère.</p>
+  <div class="grid-casse">
+    <div class="casse-cell">
+      <p class="cap">capitales · extended</p>
+      <p class="spec" style="font-size:1.8rem">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+      <p class="spec" style="font-size:1.05rem">philosophie ordinaire</p>
+    </div>
+    <div class="casse-cell">
+      <p class="cap">bas-de-casse · condensé, renversés à 90°</p>
+      <p class="spec" style="font-size:1.8rem">abcdefghijklmnopqrstuvwxyz</p>
+      <p class="spec" style="font-size:1.05rem">philosophie ordinaire</p>
+    </div>
+  </div>
+  <p class="note">Le mélange des deux styles est visible sur les chiffres et la ponctuation, notamment sur le « 6 , 9 , ? » (voir partie 4).</p>
+
+  <h2 class="section-titre">2 · accents pivotés</h2>
+  <p class="note">Les accents des capitales conservent les marques des différents pivotements : les glyphes ne dépassent pas de leur case d'origine — « des pieds dehors tout en restant dedans ».</p>
+  <div class="variant">
+    <p class="vlabel">capitales accentuées <small>Â Â â · Ô Ô ô · Î Î î · Û Û û</small></p>
+    <div class="mock" style="font-size:2.2rem">ÂÂ ââ&nbsp;&nbsp;ÔÔ ôô&nbsp;&nbsp;ÎÎ îî&nbsp;&nbsp;ÛÛ ûû</div>
+  </div>
+  <div class="variant">
+    <p class="vlabel">accentuées en bâti <small>le macron (‾) marque le pivotement, via les ligatures e·r, e·c·h, etc.</small></p>
+    <div class="mock" style="font-size:2.2rem">e&#8201;r &#8201;·&#8201; e&#8201;c&#8201;h</div>
+  </div>
+
+  <h2 class="section-titre">3 · ligatures inclusives au point médiant (·)</h2>
+  <p class="note">La fonte propose des glyphes et ligatures inclusives et non-binaires, ainsi que des éléments de liaison et des alternatives au point médiant. Taper la séquence A·E (capitales + point médiant) déclenche le glyphe de liaison A_E ; de même pour S·H·E, D·U·D·E·L·A, T·H·E·Y, R·X·S·E, etc. Ce sont des propositions ouvertes, vouées à évoluer.</p>
+  <div class="variant">
+    <p class="vlabel">formes de liaison <small>point médiant activé (liga)</small></p>
+    <div class="mock" style="font-size:2.1rem">
+      A·E&nbsp;&nbsp;S·H·E&nbsp;&nbsp;D·U·D·E·L·A&nbsp;&nbsp;T·H·E·Y&nbsp;&nbsp;R·X·S·E&nbsp;&nbsp;A·O
+    </div>
+  </div>
+  <div class="variant">
+    <p class="vlabel">liaisons bas-de-casse <small>a·e · a·o · c·h·e · d·u·d·e·l·a · t·h·e·m</small></p>
+    <div class="mock" style="font-size:2.1rem">
+      a·e&nbsp;&nbsp;c·h·e&nbsp;&nbsp;->&nbsp;&nbsp;t·h·e·m&nbsp;&nbsp;m·a·o·n
+    </div>
+  </div>
+
+  <h2 class="section-titre">4 · chiffres et ponctuation, les deux styles mélangés</h2>
+  <p class="note">Les modules étirés issus des capitales et ceux condensés issus des bas-de-casse se côtoient — visible sur « 6 , 9 , ? ».</p>
+  <div class="variant">
+    <p class="vlabel">chiffres et ponctuation</p>
+    <div class="mock" style="font-size:2.2rem">0123456789&nbsp;&nbsp;6 9 ? ! &nbsp;: ; , .</div>
+    <p class="note">—</p>
+  </div>
+
+  <h2 class="section-titre">5 · éléments gardés de la fonte d'origine</h2>
+  <p class="note">Certains éléments sont conservés intacts de la fonte d'origine, « tels des diamants bruts ».</p>
+  <div class="variant">
+    <p class="vlabel">diamants bruts <small>¶ · • · * · © · ® · § · 1 2 3 · ¼ ½ ¾</small></p>
+    <div class="mock" style="font-size:2.2rem">¶&nbsp;&nbsp;•&nbsp;&nbsp;*&nbsp;&nbsp;©&nbsp;&nbsp;®&nbsp;&nbsp;§&nbsp;&nbsp;1 2 3&nbsp;&nbsp;¼ ½ ¾</div>
+  </div>
+
+  <h2 class="section-titre">6 · jeu stylistique : point médiant alternatif (ss01–ss08)</h2>
+  <p class="note">Le point médiant du caractère propose plusieurs versions alternatives, activables par les jeux stylistiques OpenType (ss01 à ss08), aux côtés d'alternatives à l'astérisque.</p>
+  <div class="grid-ss">
+    <div class="ss-cell"><p class="cap">par défaut</p><div class="big">·</div></div>
+    <div class="ss-cell"><p class="cap">ss01</p><div class="big" style="font-variant-alternates: styleset(1)">·</div></div>
+    <div class="ss-cell"><p class="cap">ss02</p><div class="big" style="font-variant-alternates: styleset(2)">·</div></div>
+    <div class="ss-cell"><p class="cap">ss03</p><div class="big" style="font-variant-alternates: styleset(3)">·</div></div>
+    <div class="ss-cell"><p class="cap">ss04</p><div class="big" style="font-variant-alternates: styleset(4)">·</div></div>
+    <div class="ss-cell"><p class="cap">ss05–08</p><div class="big" style="font-variant-alternates: styleset(5)">•</div></div>
+  </div>
+  <p class="note">Les alternatives ss05 à ss08 portent sur l'astérisque (*). L'affichage dépend du support de <code>font-variant-alternates: styleset(n)</code> dans le navigateur de visualisation.</p>
+
+  <h2 class="section-titre">7 · petites tailles vs grandes tailles</h2>
+  <p class="note">Une fonte de titrage à l'esprit condensé/extended : sa lecture change fortement selon la taille (grande taille = rythme découpé ; petite taille = trame serrée).</p>
+  <div class="variant">
+    <p class="vlabel">grande taille <small>la double proportion devient lisible</small></p>
+    <div class="mock" style="font-size:2.6rem; line-height:1.15">centre de la photographie ordinaire</div>
+  </div>
+  <div class="variant">
+    <p class="vlabel">titre du site <small>taille d'usage dans le header des pages</small></p>
+    <div class="mock" style="font-size:1.3rem; font-weight:500">centre de la photographie ordinaire</div>
+  </div>
+  <div class="variant">
+    <p class="vlabel">petite taille <small>trame serrée, corps courant</small></p>
+    <div class="mock" style="font-size:0.95rem">Simorre 32420 · le commun des mortels</div>
+  </div>
+
+  <p class="fin">À juger avec le centre : quelles variations de DINdong servent le site — capitales ou bas-de-casse pour les titres, taille d'usage, activation ou non des ligatures inclusives et des jeux stylistiques ss01–ss08. DINdong est une proposition ouverte, aucune règle fixe ; voir la fiche technique et le README de la fonte pour le détail des glyphes.</p>
+</div>
+</body>
+</html>
