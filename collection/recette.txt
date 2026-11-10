@@ -1,0 +1,1 @@
+fond=#AEAEAE cadre=(4, 3) large=2000 thumb=480

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Centre de la photographie ordinaire · brouillons</title><link>https://centre-de-la-photographie-ordinaire.github.io/</link><description>Recent content on Centre de la photographie ordinaire · brouillons</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://centre-de-la-photographie-ordinaire.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Agenda</title><link>https://centre-de-la-photographie-ordinaire.github.io/agenda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/agenda/</guid><description>&lt;h2&gt;expositions à venir&lt;/h2&gt;
+&lt;div class="agenda-list"&gt;
+ &lt;!-- C’est une femme : vignette 600 px dans la liste, 1000 px dans le panneau.
+ Visuels produits par tools/build-agenda.sh depuis « page agenda/ ».
+ La vignette est un déclencheur du panneau (data-dialog) : plus de
+ dépliant inline, le contenu s’ouvre en haut à droite (demande
+ client 2026-11-09).
+ (commentaires HTML, pas {{{{/* */}}}}, sinon Hugo les affiche) --&gt;
+ &lt;div class="agenda-item" data-slug="cest-une-femme"&gt;
+ &lt;button type="button" class="agenda-declencheur" data-dialog="agenda-panneau-cest-une-femme" aria-expanded="false" aria-controls="agenda-panneau-cest-une-femme" aria-label="voir l’affiche et le détail de « C’est une femme »"&gt;
+ &lt;span class="agenda-image-frame"&gt;
+ &lt;img src="https://centre-de-la-photographie-ordinaire.github.io/images/agenda/cest-une-femme-600.jpg" srcset="https://centre-de-la-photographie-ordinaire.github.io/images/agenda/cest-une-femme-600.jpg 600w, https://centre-de-la-photographie-ordinaire.github.io/images/agenda/cest-une-femme-1000.jpg 1000w" sizes="160px"
+ alt="C’est une femme" width="600" height="818" loading="lazy" /&gt;
+ &lt;/span&gt;
+ &lt;span class="agenda-info"&gt;
+ &lt;span class="agenda-titre"&gt;C’est une femme&lt;/span&gt;
+ &lt;span class="agenda-meta"&gt;Du 25 septembre au 14 Novembre 2026&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;!-- panneau de l’item : mêmes &lt;dialog&gt; que la page objet (haut-droite,
+ fond jaune), avec la date, le texte, l’affiche en grand et le PDF. --&gt;
+ &lt;dialog class="objet-dialog agenda-dialog" id="agenda-panneau-cest-une-femme" aria-labelledby="agenda-panneau-cest-une-femme-titre"&gt;
+ &lt;div class="objet-dialog-entete"&gt;
+ &lt;h2 class="objet-dialog-titre" id="agenda-panneau-cest-une-femme-titre"&gt;C’est une femme&lt;/h2&gt;
+ &lt;button type="button" class="objet-dialog-fermer" data-dialog-close aria-label="Fermer"&gt;&amp;times;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="objet-dialog-corps"&gt;
+ &lt;p class="agenda-dialog-periode"&gt;Du 25 septembre au 14 Novembre 2026&lt;/p&gt;</description></item><item><title>Collection</title><link>https://centre-de-la-photographie-ordinaire.github.io/collection/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/collection/</guid><description>&lt;!--
+ Cette page ne contient plus la liste des collections : elle est générée
+ depuis le répertoire par tools/import-collection.py, qui écrit
+ static/collection/collections.json (lu par layouts/partials/galerie.html).
+ Pour mettre la page à jour après une nouvelle livraison de photos :
+
+ tools/import-collection.py
+
+ Le texte ci-dessous est le chapeau de la page ; il reste modifiable ici.
+--&gt;
+&lt;p class="collection-chapeau"&gt;
+ Les collections du &lt;em&gt;commun des mortels&lt;/em&gt; : des photographies de famille
+ ordinaires, rassemblées par thème, comme elles ont été trouvées.
+&lt;/p&gt;</description></item><item><title>Contact</title><link>https://centre-de-la-photographie-ordinaire.github.io/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/contact/</guid><description>&lt;h2&gt;coordonnées&lt;/h2&gt;
+&lt;address class="coordonnees"&gt;
+ Centre de la photographie ordinaire&lt;br /&gt;
+ 54 grande rue Paul Saint-Martin&lt;br /&gt;
+ 32420 Simorre&lt;br /&gt;
+ &lt;a href="mailto:bonjour@centredelaphotographieordinaire.fr"&gt;bonjour@centredelaphotographieordinaire.fr&lt;/a&gt;&lt;br /&gt;
+ &lt;a href="tel:+33626822334"&gt;06 26 82 23 34&lt;/a&gt;
+&lt;/address&gt;
+&lt;h2&gt;horaires&lt;/h2&gt;
+&lt;table class="horaires"&gt;
+ &lt;caption class="sr-only"&gt;horaires d'ouverture du centre&lt;/caption&gt;
+ &lt;tbody&gt;
+ &lt;tr class="horaires-ferme"&gt;
+ &lt;th scope="row"&gt;&lt;span class="jour-att"&gt;lundi&lt;/span&gt;&lt;/th&gt;
+ &lt;td&gt;fermé&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;th scope="row"&gt;&lt;span class="jour-att"&gt;mardi&lt;/span&gt;&lt;/th&gt;
+ &lt;td&gt;&lt;time&gt;10 h – 12 h 30&lt;/time&gt; · &lt;time&gt;15 h – 18 h 30&lt;/time&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;th scope="row"&gt;&lt;span class="jour-att"&gt;mercredi&lt;/span&gt;&lt;/th&gt;
+ &lt;td&gt;&lt;time&gt;10 h – 12 h 30&lt;/time&gt; · &lt;time&gt;15 h – 18 h 30&lt;/time&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;th scope="row"&gt;&lt;span class="jour-att"&gt;jeudi&lt;/span&gt;&lt;/th&gt;
+ &lt;td&gt;&lt;time&gt;10 h – 12 h 30&lt;/time&gt; · &lt;time&gt;15 h – 18 h 30&lt;/time&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;th scope="row"&gt;&lt;span class="jour-att"&gt;vendredi&lt;/span&gt;&lt;/th&gt;
+ &lt;td&gt;&lt;time&gt;10 h – 12 h 30&lt;/time&gt; · &lt;time&gt;15 h – 18 h 30&lt;/time&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;th scope="row"&gt;&lt;span class="jour-att"&gt;samedi&lt;/span&gt;&lt;/th&gt;
+ &lt;td&gt;&lt;time&gt;10 h – 12 h 30&lt;/time&gt; · &lt;time&gt;15 h – 18 h 30&lt;/time&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;th scope="row"&gt;&lt;span class="jour-att"&gt;dimanche&lt;/span&gt;&lt;/th&gt;
+ &lt;td&gt;&lt;time&gt;10 h 30 – 12 h 30&lt;/time&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p class="horaires-note"&gt;Habituellement ouvert du mardi au dimanche matin.&lt;br /&gt;
+À vérifier par téléphone avant de venir.&lt;/p&gt;</description></item><item><title>Expositions</title><link>https://centre-de-la-photographie-ordinaire.github.io/expositions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/expositions/</guid><description/></item><item><title>Missions</title><link>https://centre-de-la-photographie-ordinaire.github.io/missions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/missions/</guid><description>&lt;div class="missions-intro"&gt;
+&lt;p&gt;Le parti pris du Centre de la Photographie Ordinaire : proposer aux visiteurs des expositions dans lesquelles ils se reconnaissent, avec des photos comme celles qu'ils prennent et possèdent. Inviter des artistes contemporains à créer, et des chercheurs à travailler, à partir de la collection, pour nous faire regarder autrement ce qui nous est familier. Tenir un lieu d'expérimentation où culture visuelle populaire et art contemporain sont à égalité, et s'enrichissent mutuellement.&lt;/p&gt;</description></item><item><title>objet</title><link>https://centre-de-la-photographie-ordinaire.github.io/objet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://centre-de-la-photographie-ordinaire.github.io/objet/</guid><description>&lt;div class="objet-layout"&gt;
+&lt;div class="objet-col-texte"&gt;
+&lt;p&gt;&lt;span class="objet-ligne-titre"&gt;Le Centre de la photographie ordinaire abrite la collection :&lt;br /&gt;3 000 000 de photographies de famille, classées en plus de 400 thèmes.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;3 000 000 de photographies amateurs et anonymes déploient un immense récit humain, du début de la photographie à nos jours. Le classement en plus de 400 thèmes révèle l'histoire du regard et des pratiques photographiques populaires.&lt;/p&gt;
+&lt;p&gt;La collection sauvegarde ce patrimoine vernaculaire et œuvre à changer notre rapport aux photographies devenues anonymes.&lt;/p&gt;</description></item></channel></rss>

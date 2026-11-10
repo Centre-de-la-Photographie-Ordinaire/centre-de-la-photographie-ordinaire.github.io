@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- racine du site : diaporama vitrine (copie de website-draft, générée par tools/sync-staging.sh) -->
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>centre de la photographie ordinaire</title>
+  <meta name="description" content="Diaporama — centre de la photographie ordinaire" />
+  <meta name="theme-color" content="#14171A" />
+  <link rel="icon" href="diaporama/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="diaporama/favicon.png" />
+  <!-- les visuels disponibles apparaissent dès le premier rendu -->
+  <link rel="preload" as="image" href="diaporama/images/desktop/01-1920.webp" media="(min-aspect-ratio: 29/20)" />
+  <link rel="preload" as="image" href="diaporama/images/tablet/01-1024.webp"
+        media="(min-aspect-ratio: 9/10) and (max-aspect-ratio: 29/20)" />
+  <link rel="preload" as="image" href="diaporama/images/phone/01-1080.webp" media="(max-aspect-ratio: 9/10)" />
+  <link rel="stylesheet" href="diaporama/style.css" />
+</head>
+<body>
+  <div id="stage" role="button" tabindex="0" aria-label="photo : cliquer pour mettre en pause le diaporama">
+    <img id="photo" alt="" width="1920" height="1080"
+         decoding="async" fetchpriority="high" />
+  </div>
+
+  <div id="bottom-bar">
+    <a id="logo-tp" href="objet/" aria-label="centre de la photographie ordinaire, entrer sur le site">
+      <img src="images/logo-cpo-horizontal.png" alt="" width="800" height="496">
+    </a>
+    <button type="button" id="state" aria-label="mettre le diaporama en pause" aria-pressed="false"></button>
+  </div>
+
+  <script type="module" src="diaporama/main.js"></script>
+</body>
+</html>
