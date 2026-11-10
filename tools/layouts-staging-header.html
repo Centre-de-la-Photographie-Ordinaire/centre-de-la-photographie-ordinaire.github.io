@@ -1,29 +1,37 @@
 {{/* header partagé — logo + titre haut-gauche (variante A, cf. experiment logo-titre),
-     hamburger DROPDOWN à droite (remplace la navbar inline) */}}
+     hamburger DROPDOWN à droite (remplace la navbar inline).
+
+     RÉPLIQUE DE STAGING (cf. tools/sync-staging.sh) : à la racine, la page
+     « accueil » est le diaporama vitrine (servi par static/index.html), pas
+     une page Hugo. Le logo et l'entrée « Accueil » du menu y mènent par une
+     URL explicite (relURL "/"), et le menu ne liste que les six pages
+     publiées (hugo.toml généré). */}}
 <header class="site-header">
-  <a href="{{ relURL "" }}" class="logo-lien" aria-label="centre de la photographie ordinaire, retour à l'accueil">
+  <a href="{{ "/" | relURL }}" class="logo-lien" aria-label="centre de la photographie ordinaire, retour au diaporama">
     {{ partial "logo.html" (dict "size" 56) }}
   </a>
   <div class="header-titres">
-    {{/* sur l'accueil et sur « objet », le titre affiché est celui du site ;
-         « Centre » prend la majuscule (relecture client 2026-11-09). Le titre du
-         site tient sur UNE ligne (« Centre de la photographie ordinaire ») et la
-         collection « le commun des mortels » passe à la ligne en dessous
-         (cpo-404) : c'est un vrai saut de ligne, pas un repli du navigateur. */}}
-    <p class="site-titre">{{ if or .IsHome (eq .RelPermalink ("objet/" | relURL)) }}<span class="site-titre-nom">Centre de la photographie ordinaire</span><span class="site-titre-collection">« le commun des mortels »</span>{{ else }}{{ .Title }}{{ end }}</p>
+    {{/* sur « objet », le titre affiché est celui du site (« Centre » avec la
+         majuscule, relecture client 2026-11-09). Le nom de la collection
+         « le commun des mortels » n'y figure plus (demande client 2026-11-10). */}}
+    <p class="site-titre">{{ if eq .RelPermalink (relURL "objet/") }}<span class="site-titre-nom">Centre de la photographie ordinaire</span>{{ else }}{{ .Title }}{{ end }}</p>
   </div>
   <div class="menu-wrap">
     <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="site-nav">
       <span></span><span></span><span></span>
     </button>
     <nav id="site-nav" class="nav" aria-label="navigation principale">
-      {{/* libellés = titres des pages (menu config), sans préfixe « page N · » ;
-           l'accueil garde son libellé de menu (« accueil ») et non son titre de
-           page, qui est celui du sommaire des brouillons. */}}
+      {{/* libellés : le nom du menu (« Accueil », majuscule demandée le
+           2026-11-10) pour l'accueil, le titre de la page pour les six pages. */}}
       {{ range site.Menus.main }}
-        {{ $titre := .Name }}
-        {{ if and .Page (not .Page.IsHome) }}{{ $titre = .Page.Title }}{{ end }}
-        <a href="{{ .URL }}">{{ $titre }}</a>
+        {{ if .Page }}
+          {{ $titre := .Name }}
+          {{ if not .Page.IsHome }}{{ $titre = .Page.Title }}{{ end }}
+          <a href="{{ .URL }}">{{ $titre }}</a>
+        {{ else }}
+          {{/* l'accueil : le diaporama vitrine, absent des pages Hugo */}}
+          <a href="{{ "/" | relURL }}">{{ .Name }}</a>
+        {{ end }}
       {{ end }}
     </nav>
   </div>

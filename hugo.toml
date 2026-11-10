@@ -19,7 +19,7 @@ disableKinds = ["taxonomy", "term"]
 # sans préfixe « page N · » (retour client 2026-10-19).
 
 [[menu.main]]
-  name = "accueil"
+  name = "Accueil"
   url = "/"
   weight = 1
 

@@ -1,5 +1,5 @@
 ---
-title: objet
+title: Objet
 sansTitre: true
 ---
 

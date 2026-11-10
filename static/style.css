@@ -63,8 +63,8 @@ body {
 }
 .header-titres { flex: 1; min-width: 0; }
 /* Le titre du site tient sur UNE ligne (cpo-404) : « Centre de la
-   photographie ordinaire » ne se replie pas, même sur téléphone. La collection
-   passe en dessous, dans un .site-titre-collection (bloc, corps réduit). */
+   photographie ordinaire » ne se replie pas, même sur téléphone. Le nom de la
+   collection n'apparaît plus sous ce titre (demande client 2026-11-10). */
 .site-titre {
   font-family: var(--font-titre);
   font-size: clamp(1.05rem, 2.4vw, 1.55rem);
@@ -82,16 +82,6 @@ body {
   display: block;
   white-space: nowrap;
   font-size: clamp(0.7rem, calc((100vw - 11.4rem) / 15.6), 1.55rem);
-}
-.site-titre-collection {
-  display: block;
-  /* même calcul de largeur pour la collection (~13 fois son corps), plafonnée
-     à 82 % du corps du nom : la hiérarchie des deux lignes est gardée à tous
-     les paliers. Elle peut, elle, se replier si besoin. */
-  font-size: clamp(0.6rem, min(calc((100vw - 11.4rem) / 13.2), calc((100vw - 11.4rem) / 15.6 * 0.82)), 1.1rem);
-  white-space: normal;
-  letter-spacing: 0.01em;
-  opacity: 0.82;
 }
 
 .menu-wrap { flex-shrink: 0; position: relative; }

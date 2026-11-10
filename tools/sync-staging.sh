@@ -164,14 +164,20 @@ toml = toml.replace(
     "# Fichier GÉNÉRÉ par tools/sync-staging.sh depuis website-draft/hugo.toml :\n"
     "# ne pas l'éditer ici, corriger website-draft puis relancer le script.")
 # le menu ne garde que les six pages publiées (accueil compris : il pointe
-# vers le diaporama, cf. layouts/partials/header.html)
+# vers le diaporama, cf. layouts/partials/header.html). Les LIBELLÉS sont
+# repris tels quels de website-draft (hugo.toml), par slug de page : renommer
+# un menu dans website-draft suffit, rien n'est recodé ici.
+entrees = re.findall(
+    r"\[\[menu\.main\]\]\n  name = \"([^\"]+)\"\n  pageRef = \"([^\"]+)\"", toml)
+libelles = {ref.strip("/") or "/": nom for nom, ref in entrees}
 toml = re.sub(r"(\[\[menu\.main\]\]\n  name = \"[^\"]+\"\n  pageRef = \"[^\"]+\"\n  weight = \d+\n\n?)+", "", toml)
 menu = []
-weight = 1
 # la racine (accueil) n'est pas une page Hugo : le menu porte un lien explicite
-menu.append('[[menu.main]]\n  name = "accueil"\n  url = "/"\n  weight = %d\n' % weight)
+menu.append('[[menu.main]]\n  name = "%s"\n  url = "/"\n  weight = 1\n'
+            % libelles.get("/", "accueil"))
 for i, p in enumerate(pages, start=2):
-    menu.append('[[menu.main]]\n  name = "%s"\n  pageRef = "/%s"\n  weight = %d\n' % (p, p, i))
+    menu.append('[[menu.main]]\n  name = "%s"\n  pageRef = "/%s"\n  weight = %d\n'
+                % (libelles.get(p, p), p, i))
 toml = toml.replace(
     "# ---------------------------------------------------------------------------\n# paramètres du site",
     "\n".join(menu) + "\n# ---------------------------------------------------------------------------\n# paramètres du site")
