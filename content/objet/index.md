@@ -26,16 +26,11 @@ sansTitre: true
 </div>
 </div>
 
-<!-- pied de page de la page objet : le label du Bicentenaire (logos + mention),
-     repris de la page esprit. -->
-<div class="logo-partenaires objet-partenaires">
-  <div class="logo-cpo">
-    {{< logo size=96 >}}
-  </div>
-  <div class="logo-ministere">
-    <img class="logo-bicentenaire" src="{{< rel "images/bicentenaire_circle_logo.png" >}}" alt="Bicentenaire de la photographie 1826–2026" width="736" height="334">
-    <p class="mention-bicentenaire">De septembre 2026 à septembre 2027, les expositions et ateliers proposés sont du labellisés par le ministère de la Culture dans le cadre Bicentenaire de la Photographie</p>
-  </div>
+<!-- pied de page de la page objet : la seule mention du label Bicentenaire.
+     Les logos (centre + cercle 1826-2026) ont été retirés sur demande client
+     2026-11-10 : le texte seul, sous un filet. -->
+<div class="objet-partenaires">
+  <p class="mention-bicentenaire">De septembre 2026 à septembre 2027, les expositions et ateliers proposés sont du labellisés par le ministère de la Culture dans le cadre Bicentenaire de la Photographie</p>
 </div>
 
 <!-- Les « panneaux » sont des <dialog> natifs (cf. components/dialog, v6) :

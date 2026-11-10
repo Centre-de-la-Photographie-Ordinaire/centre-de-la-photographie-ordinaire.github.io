@@ -458,11 +458,13 @@ body {
    collection : » se termine sur sa propre ligne, les chiffres ouvrent la
    suivante. Le <br> du HTML fait la coupure. */
 .objet-ligne-titre { display: inline; }
-/* le titre de la ligne 1 ne doit pas hériter de la taille de bouton du logo du
-   pied de page (.logo-cpo .logo) */
-.objet-partenaires .logo { display: block; }
-/* pied de page de /objet/ : label Bicentenaire, filet au-dessus */
-.objet-partenaires { margin: 2.6rem 0 1rem; }
+/* pied de page de /objet/ : la mention Bicentenaire seule (sans les logos),
+   sous un filet qui la sépare de la ligne des liens. */
+.objet-partenaires {
+  margin: 2.6rem 0 1rem;
+  border-top: 1px solid rgba(245, 239, 228, 0.18);
+  padding-top: 1.2rem;
+}
 /* ligne des trois liens légers, sous la photo (remplace la barre des 3 points —
    retour 2026-10-19), et leurs panneaux juste en dessous, dans le même <ul>.
    Style d'après objet-list-item.png : un disque jaune posé DERRIÈRE le texte,
