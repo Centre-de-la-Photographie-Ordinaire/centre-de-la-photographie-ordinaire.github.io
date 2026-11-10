@@ -11,6 +11,13 @@ env:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+# un seul déploiement à la fois ; un push plus récent remplace celui en cours
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -26,17 +33,24 @@ jobs:
           /tmp/hugo version
       - name: Build
         run: /tmp/hugo build --minify --baseURL "${HUGO_BASE_URL}" --destination public
-      - name: Publish to gh-pages
-        env:
-          TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -ex
-          cd public
-          git init -q
-          git config user.name "pages-bot"
-          git config user.email "pages-bot@users.noreply.github.com"
-          git add -A
-          git commit -q -m "pages build ${GITHUB_SHA}"
-          git remote add origin "https://x-token:${TOKEN}@github.com/${REPO}.git"
-          git push -f -q origin HEAD:refs/heads/gh-pages
+      # dépôt d'artefact Pages (remplace le push force sur gh-pages).
+      # Pourquoi : la réplique pèse ~120 Mo (collection + diaporama + vidéos) ;
+      # pousser une branche à chaque commit faisait re-synchroniser ce poids
+      # entier par le service Pages, qui restait bloqué en « syncing_files »
+      # et dépassait le délai de 10 min (runs 42800936315 et 42804215437).
+      # L'artefact, lui, n'est déployé qu'une fois et le service Pages ne fait
+      # plus de diff de branche.
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
