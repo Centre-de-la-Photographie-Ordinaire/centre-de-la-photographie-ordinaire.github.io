@@ -1,0 +1,9 @@
+{{ define "main" }}
+<main class="main collection-page">
+  {{ .Content }}
+  {{ partial "galerie.html" . }}
+  {{ partial "parutions.html" . }}
+  <script>window.GALERIE_BASE = {{ "collection/" | relURL }};</script>
+  <script src="{{ "collection/galerie.js" | relURL }}" defer></script>
+</main>
+{{ end }}

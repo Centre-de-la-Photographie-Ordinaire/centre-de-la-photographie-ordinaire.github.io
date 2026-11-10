@@ -1,0 +1,63 @@
+{{/*
+  galerie.html — la galerie d'UNE collection : grande image au-dessus, bandeau
+  de vignettes en dessous, comme le lecteur de romapublications.
+
+  Chaque collection est un <details class="collection-item"> de la liste de la
+  page (accordéon mono-ouvert) ; une galerie n'est construite par le JS que
+  lorsque son panneau s'ouvre : la page ne télécharge donc pas 532 vignettes
+  d'un coup.
+
+  Données : data/collection.json, écrit par tools/import-collection.py (une
+  entrée par dossier du répertoire). Rien n'est à écrire à la main dans
+  content/collection/index.md : relancer le script suffit.
+
+  Le numéro d'image va dans l'URL (#accordeon/3) : lien direct partageable.
+*/}}
+{{- $data := site.Data.collection -}}
+{{- if reflect.IsSlice $data -}}{{- $data = index $data 0 -}}{{- end -}}
+{{- if not (reflect.IsMap $data) -}}
+  {{- $data = $data | transform.Unmarshal -}}
+{{- end -}}
+{{- if not (and $data $data.collections) -}}
+  {{- errorf "collection : data/collection.json manquant ou illisible — lancer tools/import-collection.py" -}}
+{{- end -}}
+
+<div class="collection-list" data-collection-list>
+  {{- range $data.collections }}
+  <details class="collection-item" id="{{ .slug }}" data-collection="{{ .slug }}" data-count="{{ .count }}">
+    <summary>
+      <span class="collection-nom">{{ .name }}</span>
+      <span class="collection-nb" aria-hidden="true">{{ .count }}</span>
+    </summary>
+
+    <div class="galerie" data-galerie hidden>
+      <figure class="galerie-vue" data-galerie-vue>
+        {{/* .galerie-cadre se règle sur l'image : c'est lui qui porte les flèches
+             et la légende, pour qu'elles tombent sur les bords de la photo. */}}
+        <div class="galerie-cadre">
+          <a class="galerie-image-lien" data-galerie-lien href="#" tabindex="-1" aria-hidden="true">
+            <img class="galerie-image" data-galerie-image alt="" decoding="async" />
+          </a>
+          <button type="button" class="galerie-fleche galerie-fleche-gauche"
+                  data-galerie-prev aria-label="Image précédente">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <button type="button" class="galerie-fleche galerie-fleche-droite"
+                  data-galerie-next aria-label="Image suivante">
+            <span aria-hidden="true">›</span>
+          </button>
+          <figcaption class="galerie-legende">
+            <span class="galerie-legende-nom">{{ .name }}</span>
+            <span class="galerie-legende-num" data-galerie-legende-num aria-hidden="true"></span>
+          </figcaption>
+        </div>
+      </figure>
+
+      <nav class="galerie-pellicule" data-galerie-pellicule aria-label="Vignettes de la collection {{ .name }}">
+      </nav>
+    </div>
+  </details>
+  {{- end }}
+</div>
+
+<script type="application/json" id="galerie-donnees">{{ $data | transform.Remarshal "json" | safeJS }}</script>

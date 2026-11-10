@@ -2,4 +2,4 @@
      « logo cpo horizontal », reçu 2026-10-19), ratio 1902:1179 conservé.
      usage : {{ partial "logo.html" (dict "size" 56) }} ou shortcode {{< logo size=56 >}}
      (size = HAUTEUR en px, largeur automatique = ratio conservé) */}}
-<img class="logo" src="/images/logo-cpo-horizontal.png" alt="logo du centre de la photographie ordinaire" width="800" height="496" style="height:{{ index . "size" | default 56 }}px;width:auto" role="img">
+<img class="logo" src="{{ "images/logo-cpo-horizontal.png" | relURL }}" alt="logo du centre de la photographie ordinaire" width="800" height="496" style="height:{{ index . "size" | default 56 }}px;width:auto" role="img">

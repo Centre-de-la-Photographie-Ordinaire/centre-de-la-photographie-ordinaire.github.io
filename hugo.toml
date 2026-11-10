@@ -1,10 +1,63 @@
+# RÉPLIQUE DE STAGING, site d'organisation : servi à la RACINE
+# (cf. HUGO_BASE_URL dans .github/workflows/deploy.yml).
+# Fichier GÉNÉRÉ par tools/sync-staging.sh depuis website-draft/hugo.toml :
+# ne pas l'éditer ici, corriger website-draft puis relancer le script.
 baseURL = "https://centre-de-la-photographie-ordinaire.github.io/"
 languageCode = "fr-fr"
-title = "centre de la photographie ordinaire · brouillons"
+title = "Centre de la photographie ordinaire · brouillons"
 timeZone = "Europe/Paris"
 enableRobustParser = true
+
+disableKinds = ["taxonomy", "term"]
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+# menu principal (hamburger) — les libellés sont les titres des pages,
+# sans préfixe « page N · » (retour client 2026-10-19).
+
+[[menu.main]]
+  name = "accueil"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "objet"
+  pageRef = "/objet"
+  weight = 2
+
+[[menu.main]]
+  name = "missions"
+  pageRef = "/missions"
+  weight = 3
+
+[[menu.main]]
+  name = "agenda"
+  pageRef = "/agenda"
+  weight = 4
+
+[[menu.main]]
+  name = "collection"
+  pageRef = "/collection"
+  weight = 5
+
+[[menu.main]]
+  name = "expositions"
+  pageRef = "/expositions"
+  weight = 6
+
+[[menu.main]]
+  name = "contact"
+  pageRef = "/contact"
+  weight = 7
+
+# ---------------------------------------------------------------------------
+# paramètres du site
+# ---------------------------------------------------------------------------
+[params]
+  # Formulaire « être prévenu des prochaines parutions » (bas de la page
+  # collection). Endpoint Formspree fourni par le client ; pour en changer,
+  # remplacer seulement l'identifiant après https://formspree.io/f/.
+  formspree_collection = "https://formspree.io/f/xrppwypr"

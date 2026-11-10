@@ -4,27 +4,31 @@
 {{ with .Params.expos }}
 <div class="expo-layout">
   <aside class="expo-fixe" aria-label="visuel du centre">
-    <img src="/images/expositions/image-fixe-gauche.jpg"
+    <img src="{{ "images/expositions/image-fixe-gauche.jpg" | relURL }}"
          alt="Femme avec du scotch adhésif sur les yeux"
          width="1600" height="1068" loading="eager">
     <p class="expo-legende">Dommage !<br>Centre d'art et de photographie, Lectoure</p>
   </aside>
   <div class="expo-liste">
     <ol>
-      {{ range $i, $e := . }}
+      {{/* tri par date croissante (2016 → 2026), quel que soit l'ordre du
+           fichier ; à date égale, l'ordre du fichier est conservé. */}}
+      {{ range sort . "date" "asc" }}
+      {{ $nom := .nom }}
       <li>
         <details class="expo-item">
           <summary>
-            <span class="expo-nom">{{ $e.nom }}</span>
-            <span class="expo-meta">{{ $e.date }} · {{ $e.lieu }}</span>
+            <span class="expo-nom">{{ .nom }}</span>
+            <span class="expo-meta">{{ .date }} · {{ .lieu }}</span>
           </summary>
+          {{/* pas de visuel : on n'émet pas .expo-visuel du tout — sinon le
+               <details> ouvrirait un cadre vide (l'ancien « à compléter » a été
+               retiré sur demande client 2026-11-09). */}}
+          {{ with .image }}
           <div class="expo-visuel">
-            {{ with $e.image }}
-            <img src="{{ . }}" alt="{{ $e.nom }}" loading="lazy">
-            {{ else }}
-            <span class="expo-void">à compléter</span>
-            {{ end }}
+            <img src="{{ relURL . }}" alt="{{ $nom }}" loading="lazy">
           </div>
+          {{ end }}
         </details>
       </li>
       {{ end }}

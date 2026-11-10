@@ -1,0 +1,46 @@
+{{/*
+  {{< carte-leaflet >}} — carte Leaflet de la page /contact/.
+
+  Un shortcode et non un <script> écrit à la main dans le Markdown : Goldmark
+  traite le texte après une ligne vide comme du Markdown et transfor­mait le
+  script en paragraphes (apostrophes remplacées par des guillemets
+  typographiques → SyntaxError). Ici le script est émis tel quel.
+
+  L'élément cible est #carte-simorre (déjà dans content/contact/index.md, avec
+  le repli sans JS : adresse + lien d'itinéraire).
+*/}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function () {
+  var el = document.getElementById('carte-simorre');
+  if (!el || !window.L) return;          /* pas de Leaflet : le repli reste */
+  var lat = parseFloat(el.getAttribute('data-lat'));
+  var lon = parseFloat(el.getAttribute('data-lon'));
+  var zoom = parseInt(el.getAttribute('data-zoom'), 10) || 11;
+
+  el.innerHTML = '';                     /* remplace le repli par la carte */
+  el.classList.add('carte-montee');
+
+  var carte = L.map(el, { scrollWheelZoom: false }).setView([lat, lon], zoom);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(carte);
+
+  L.marker([lat, lon]).addTo(carte)
+    .bindPopup(el.getAttribute('data-titre'))
+    .openPopup();
+
+  /* le défilement de la page ne doit pas être capturé par la carte : on
+     n'active le zoom molette qu'au clic, et on le rend en quittant */
+  el.addEventListener('focusin', function () { carte.scrollWheelZoom.enable(); });
+  el.addEventListener('focusout', function () { carte.scrollWheelZoom.disable(); });
+  carte.on('click', function () { carte.scrollWheelZoom.enable(); });
+
+  /* après rendu (police, largeur finale), Leaflet doit recalculer sa taille */
+  window.addEventListener('load', function () { carte.invalidateSize(); });
+})();
+</script>

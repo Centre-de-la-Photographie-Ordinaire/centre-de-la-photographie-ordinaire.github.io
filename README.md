@@ -1,49 +1,55 @@
-# centre de la photographie ordinaire — brouillons
+# centre de la photographie ordinaire — réplique de STAGING
 
-Squelette Hugo du futur site **centredelaphotographieordinaire.fr**.
+Ce dépôt n'est **pas** édité à la main : c'est une réplique de
+`../website-draft`, publiée sur le site d'organisation GitHub Pages.
 
-Le site sera monté par **expérimentation** : chaque experiment est une page
-autonome qui partage la charte graphique du Centre (fond `#2A2E33`, texte
-`#F5EFE4`, accent `#FAB617`) mais explore une UX différente. Les éléments qui
-fonctionnent alimenteront ensuite le site complet.
+| | |
+|---|---|
+| ce dépôt | https://github.com/Centre-de-la-Photographie-Ordinaire/centre-de-la-photographie-ordinaire.github.io |
+| sert sur | https://centre-de-la-photographie-ordinaire.github.io/ (**racine**) |
+| source | `../website-draft` (seule source du site) |
 
-## construire
+## ce que la réplique change
+
+1. **baseURL à la racine** : `/` au lieu de `/website-draft/`.
+2. **le diaporama vitrine est l'accueil** :
+   `website-draft/static/experiments/nouveau-diaporama/` est copié à la racine
+   (`static/index.html` + `static/diaporama/` pour ses ressources). Son logo
+   de barre basse mène à `/objet/`.
+3. **six pages seulement** : `objet`, `missions`, `agenda`, `collection`,
+   `expositions`, `contact` — et la navbar (hamburger) ne propose que ces six
+   pages, plus « accueil » (le diaporama). Tout le reste (`residences`,
+   `collecte`, `soutien`, `fabrique`, `objet-archive`, `experiments/`…) n'est
+   pas publié.
+
+## resynchroniser après une modification de website-draft
 
 ```sh
-hugo build          # génère public/
-hugo server         # mode dev, auto-reload
+tools/sync-staging.sh      # relit ../website-draft et régénère tout
+hugo build --minify --baseURL "https://centre-de-la-photographie-ordinaire.github.io/" --destination public
 ```
 
-## ajouter une experiment
+Le script est **idempotent** et ne modifie **jamais** website-draft. Aucun
+fichier de `content/`, `layouts/`, `static/` ni `hugo.toml` de ce dépôt ne doit
+être édité ici : corriger website-draft, puis relancer le script.
 
-1. Créer `static/experiments/<nom>/` avec son `index.html` autonome
-   (JS/CSS/images à l'intérieur, chemins relatifs).
-2. Ajouter l'entrée dans la liste `## experiments` de `content/_index.md` :
+Seule exception, propre à la réplique (le script ne les écrase pas) :
 
-```md
-- **<nom>** — [ouvrir] (/experiments/<nom>/)
-```
+- `layouts/index.html` — page d'accueil Hugo neutralisée (la racine est écrite
+  par le diaporama) ;
+- `layouts/partials/header.html` — logo et « accueil » du menu pointent sur
+  `/` (le diaporama), les libellés du menu sont ceux de `hugo.toml` ;
+- `tools/sync-staging.sh` — le script lui-même.
 
-L'URL finale sera `/experiments/<nom>/`. Ne pas créer de page Hugo du même
-nom : les fichiers statiques prennent la main.
+## fichiers générés (ne pas éditer)
 
-## remotes / deploys
+`content/`, `layouts/` (sauf les trois ci-dessus), `data/`, `hugo.toml`,
+`static/style.css`, `static/favicon.png`, `static/fonts/`, `static/images/`,
+`static/videos/`, `static/documents/`, `static/collection/`,
+`static/index.html`, `static/diaporama/`.
 
-- `origin` — https://github.com/Centre-de-la-Photographie-Ordinaire/website-draft
-- `lamai` — http://localhost:3000/alx/website-draft (miroir gitea lamai)
+## déploiement
 
-Deploys github pages (deux repos, meme contenu) :
-
-| repo github | sert sur | `HUGO_BASE_URL` (deploy.yml) |
-|---|---|---|
-| `.../website-draft` | `centre-de-la-photographie-ordinaire.github.io/website-draft/` | `.../website-draft/` |
-| `.../centre-de-la-photographie-ordinaire.github.io` (site org) | racine `centre-de-la-photographie-ordinaire.github.io/` | `.../` |
-
-Le push sur `main` de chaque repo declenche son workflow : `hugo build` puis
-push force de `public/` vers la branche `gh-pages` du meme repo (token dans le
-secret `PAGES_DEPLOY_TOKEN`, configures via `gh secret set`). `static/.nojekyll`
-desactive Jekyll sur la branche `gh-pages`.
-
-**Sync** : apres commit sur ce repo (website-draft), re-appliquer le meme commit
-sur le repo `.github.io` avec la seule difference `HUGO_BASE_URL` (voir le
-dernier commit de chaque repo pour la forme exacte).
+Push sur `main` → workflow `.github/workflows/deploy.yml` : `hugo build` puis
+push force de `public/` vers la branche `gh-pages` (secret
+`PAGES_DEPLOY_TOKEN`). `HUGO_BASE_URL` y vaut la racine du site.

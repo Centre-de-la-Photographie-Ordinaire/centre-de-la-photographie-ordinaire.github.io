@@ -1,0 +1,114 @@
+{{/*
+  Script commun des <dialog> « haut-droite, fond jaune, texte noir ».
+  Utilisé par /objet/ (trois liens) et par les faces arrière des cartes de
+  /missions/ (liens optionnels).
+
+  Contrat HTML — le déclencheur porte :
+    data-dialog="id-du-dialog"      (obligatoire : cible)
+    aria-expanded="false"           (mis à jour par le script)
+  Le <dialog> cible porte la classe .objet-dialog et peut contenir
+  n'importe quel bouton [data-dialog-close].
+
+  Modèle « components/dialog » : showModal()/close(), ::backdrop, Échap et
+  retour du focus au déclencheur sont natifs. Le site ne charge pas le JS
+  Bootstrap : on reproduit ici l'essentiel du plugin.
+*/}}
+<script>
+(function () {
+  if (window.__cpoDialogs) return;   /* idempotent : un seul branchement */
+  window.__cpoDialogs = true;
+
+  function dialogsEls() {
+    return Array.prototype.slice.call(document.querySelectorAll('dialog.objet-dialog'));
+  }
+
+  /* --- médias : chargés seulement à l'ouverture du panneau ---------------
+     La vidéo d'interview pèse ~9 Mo. Un visiteur qui n'ouvre pas le panneau
+     ne doit rien télécharger : la source reste dans data-src jusqu'au
+     premier showModal(). */
+  function preparerMedia(dialog) {
+    var medias = dialog.querySelectorAll('[data-src]');
+    Array.prototype.forEach.call(medias, function (m) {
+      if (!m.getAttribute('src')) {
+        m.setAttribute('src', m.dataset.src);
+        if (m.tagName === 'VIDEO') m.load();
+      }
+    });
+  }
+
+  function arreterMedia(dialog) {
+    var medias = dialog.querySelectorAll('video, audio');
+    Array.prototype.forEach.call(medias, function (m) {
+      if (!m.paused) m.pause();
+    });
+  }
+
+  /* --- bouton « agrandir » du panneau vidéo ------------------------------
+     Le panneau garde sa largeur de 300 px par défaut ; le bouton lui ajoute
+     .est-agrandi (largeur confortable, toujours ancré en haut à droite).
+     État indépendant des autres panneaux, purement visuel. */
+  function brancherAgrandir(dialog) {
+    var bouton = dialog.querySelector('[data-dialog-agrandir]');
+    if (!bouton) return;
+    bouton.addEventListener('click', function () {
+      var grand = dialog.classList.toggle('est-agrandi');
+      bouton.setAttribute('aria-pressed', String(grand));
+      var libelle = grand ? 'Réduire la vidéo' : 'Agrandir la vidéo';
+      bouton.setAttribute('aria-label', libelle);
+      bouton.setAttribute('title', libelle);
+    });
+    /* en fermant, on revient à la taille normale pour le prochain visiteur */
+    dialog.addEventListener('close', function () {
+      if (dialog.classList.contains('est-agrandi')) {
+        dialog.classList.remove('est-agrandi');
+        bouton.setAttribute('aria-pressed', 'false');
+        bouton.setAttribute('aria-label', 'Agrandir la vidéo');
+        bouton.setAttribute('title', 'Agrandir la vidéo');
+      }
+    });
+  }
+
+  var declencheurs = Array.prototype.slice.call(document.querySelectorAll('[data-dialog]'));
+
+  declencheurs.forEach(function (lien) {
+    var dialog = document.getElementById(lien.dataset.dialog);
+    if (!dialog) return;
+
+    var sync = function () {
+      var ouvert = dialog.open;
+      lien.classList.toggle('active', ouvert);
+      lien.setAttribute('aria-expanded', String(ouvert));
+    };
+
+    /* un modal rend le reste de la page inerte : on ne peut pas cliquer un
+       autre déclencheur tant que celui-ci est ouvert. */
+    lien.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();      /* ne pas déclencher le flip de carte au passage */
+      if (dialog.open) { dialog.close(); return; }
+      dialogsEls().forEach(function (d) { if (d !== dialog && d.open) d.close(); });
+      dialog.showModal();
+      preparerMedia(dialog);
+      sync();
+    });
+
+    dialog.addEventListener('close', function () {
+      sync();
+      arreterMedia(dialog);
+    });
+
+    dialog.addEventListener('click', function (e) {
+      if (e.target.closest('[data-dialog-close]')) { dialog.close(); return; }
+      /* clic sur le fond (::backdrop) : la cible est le <dialog> lui-même */
+      if (e.target === dialog) {
+        var r = dialog.getBoundingClientRect();
+        if (e.clientX < r.left || e.clientX > r.right ||
+            e.clientY < r.top || e.clientY > r.bottom) dialog.close();
+      }
+    });
+  });
+
+  /* les panneaux eux-mêmes (bouton d'agrandissement) */
+  dialogsEls().forEach(brancherAgrandir);
+})();
+</script>

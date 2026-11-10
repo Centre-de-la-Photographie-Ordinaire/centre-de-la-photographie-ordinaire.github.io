@@ -1,0 +1,133 @@
+:root {
+  --ink: #F5EFE4;          /* blanc chamois de la charte */
+  --accent: #FAB617;
+  --bg: #14171A;           /* noir ardoise de la charte (fond de page) */
+  --ardoise: #14171A;
+  /* zones sûres (encoche, barre home iOS) — 0 si non disponibles */
+  --sa-t: env(safe-area-inset-top, 0px);
+  --sa-r: env(safe-area-inset-right, 0px);
+  --sa-b: env(safe-area-inset-bottom, 0px);
+  --sa-l: env(safe-area-inset-left, 0px);
+}
+* { margin: 0; box-sizing: border-box; }
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+  /* pas de rebond ni de « pinch » involontaire sur mobile */
+  overscroll-behavior: none;
+  touch-action: pan-y;
+}
+
+/* la scène occupe tout l'écran ; la photo est centrée dedans */
+#stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+#photo {
+  display: block;
+  /* plein cadre : la photo couvre toute la scène. Les dimensions posées par
+     main.js la dimensionnent à la fenêtre ; object-fit absorbe l'écart
+     résiduel entre le cadrage (16:9 / 4:3 / 9:16) et l'écran. */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  image-orientation: from-image;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+  background: var(--bg);
+  image-rendering: auto;
+}
+
+/* barre bas-gauche : le logo (clic = entrer sur le site) + navigation ‹ ›
+   Elle flotte PAR-DESSUS la photo plein cadre : on lui donne un fond diffus
+   pour rester lisible sur n'importe quelle image (claire ou sombre). */
+#bottom-bar {
+  position: fixed;
+  bottom: calc(28px + var(--sa-b));
+  left: calc(28px + var(--sa-l));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  padding: 8px 10px;
+  background: radial-gradient(
+    ellipse at 0% 100%,
+    rgba(20, 23, 26, 0.62) 0%,
+    rgba(20, 23, 26, 0.34) 55%,
+    rgba(20, 23, 26, 0) 100%
+  );
+}
+
+#logo-tp {
+  display: block;
+  line-height: 0;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+#logo-tp:hover { opacity: 1; }
+#logo-tp img { display: block; height: 40px; width: auto; }
+
+/* bouton lecture / pause : ▶︎ pendant le diaporama, ❚❚ en pause
+   (cf. body.paused). C'est un vrai <button> — il reçoit les clics et le
+   focus clavier ; la photo reste un raccourci. */
+#state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(20, 23, 26, 0.45);
+  border: 1px solid rgba(245, 239, 228, 0.35);
+  color: var(--ink);
+  cursor: pointer;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(2px);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+#state::before {
+  display: block;
+  font-size: 22px;
+  position: relative;
+  top: -3px;
+}
+body:not(.paused) #state::before { content: "\25B6\FE0E"; }   /* ▶︎ */
+body.paused #state::before { content: "\275A\275A"; }          /* ❚❚ */
+#state:hover {
+  background: rgba(250, 182, 23, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+#state:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 640px) {
+  #bottom-bar { bottom: calc(14px + var(--sa-b)); left: calc(14px + var(--sa-l)); gap: 8px; padding: 6px 8px; }
+  #logo-tp img { height: 32px; width: auto; }
+  #state { width: 36px; height: 36px; }
+  #state::before { font-size: 18px; }
+}
+
+/* pointeur grossier (tactile) : pas d'état survol qui reste « collé » */
+@media (hover: none) {
+  #logo-tp { opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #logo-tp, #state { transition: none; }
+}

@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ if not .IsHome }}{{ .Title }} · {{ end }}centre de la photographie ordinaire · brouillons</title>
   <meta name="description" content="Brouillons du site du centre de la photographie ordinaire : la collection « le commun des mortels », 3 000 000 de photographies de famille, 400 thèmes." />
+  <!-- favicon = le signe du logo (carré jaune, cercle anthracite), cf. charte graphique -->
+  <link rel="icon" type="image/png" href="{{ "favicon.png" | relURL }}" />
+  <link rel="apple-touch-icon" href="{{ "favicon.png" | relURL }}" />
+  <meta name="theme-color" content="#14171A" />
   <!-- charte : corps Spectral (fallback serif systeme), titres DIN (fallback sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +19,6 @@
 {{ partial "header.html" . }}
 {{ block "main" . }}{{ end }}
 <footer class="site-footer">
-  <span>centre de la photographie ordinaire · brouillons</span>
 </footer>
 <script>
 /* hamburger dropdown — droite */

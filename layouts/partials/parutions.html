@@ -1,0 +1,94 @@
+{{/*
+  parutions.html — formulaire « être prévenu des prochaines parutions », en bas
+  de la page collection.
+
+  Envoi en fetch + `Accept: application/json` : Formspree répond du JSON et le
+  lecteur reste sur la page (pas de redirection vers une page Formspree). Le
+  message de confirmation est affiché dans un bloc aria-live, pour les lecteurs
+  d'écran comme à l'œil.
+
+  Endpoint : params.formspree_collection (hugo.toml). Champ pot de miel
+  (_gotcha) : les robots remplissent tout, Formspree ignore alors l'envoi.
+*/}}
+{{- $action := site.Params.formspree_collection -}}
+{{- with $action -}}
+<section class="parutions" id="parutions" aria-labelledby="parutions-titre">
+  <h2 class="parutions-titre" id="parutions-titre">être prévenu des prochaines parutions</h2>
+  <p class="parutions-intro">
+    Une nouvelle collection paraît ? Laissez votre adresse : vous recevrez un
+    mot quand elle sera en ligne. Rien d’autre, et désinscription en un clic.
+  </p>
+
+  <form class="parutions-form" data-parutions-form action="{{ . }}" method="POST" novalidate>
+    <label class="parutions-libelle" for="parutions-email">votre adresse e-mail</label>
+    <input class="parutions-input" type="email" id="parutions-email" name="email"
+           autocomplete="email" inputmode="email" required
+           placeholder="prenom@exemple.fr" />
+    {{/* pot de miel anti-robots : hors écran (cf. .parutions-piege). Le label
+         « ne pas remplir » s'adresse au robot, pas à l'humain : aria-hidden
+         suffit, le lien <label for> reste pour les robots qui le lisent. */}}
+    <div class="parutions-piege" aria-hidden="true">
+      <label for="parutions-gotcha">ne pas remplir</label>
+      <input type="text" id="parutions-gotcha" name="_gotcha" tabindex="-1" autocomplete="off" />
+    </div>
+    <button class="parutions-envoyer" type="submit">me prévenir</button>
+  </form>
+
+  <p class="parutions-message" data-parutions-message role="status" aria-live="polite"></p>
+
+  <noscript>
+    <p class="parutions-noscript">
+      Sans JavaScript, écrivez-nous directement à l’adresse de la page
+      <a href="{{ "/contact/" | relURL }}">contact</a>.
+    </p>
+  </noscript>
+</section>
+
+<script>
+/* envoi du formulaire Formspree sans quitter la page */
+(function () {
+  var form = document.querySelector('[data-parutions-form]');
+  if (!form) return;
+  var msg = document.querySelector('[data-parutions-message]');
+  var bouton = form.querySelector('button[type="submit"]');
+
+  function dire(texte, etat) {
+    msg.textContent = texte;
+    msg.className = 'parutions-message ' + (etat ? 'est-' + etat : '');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = form.querySelector('#parutions-email');
+    if (!email.value || !email.checkValidity()) {
+      dire('Merci de saisir une adresse e-mail valide.', 'erreur');
+      email.focus();
+      return;
+    }
+    bouton.disabled = true;
+    dire('Envoi…', 'attente');
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    }).then(function (r) {
+      if (r.ok) {
+        form.reset();
+        dire('C’est noté : vous serez prévenu de la prochaine parution.', 'ok');
+      } else {
+        return r.json().then(function (d) {
+          var err = d && d.errors && d.errors.map(function (x) { return x.message; }).join(' ');
+          dire(err || 'L’envoi n’a pas abouti. Réessayez dans un instant.', 'erreur');
+        }, function () {
+          dire('L’envoi n’a pas abouti. Réessayez dans un instant.', 'erreur');
+        });
+      }
+    }).catch(function () {
+      dire('Connexion impossible. Vérifiez votre réseau et réessayez.', 'erreur');
+    }).finally(function () {
+      bouton.disabled = false;
+    });
+  });
+})();
+</script>
+{{- end -}}
