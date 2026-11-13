@@ -1,3 +1,15 @@
+/* fonte des titres : DINdong, auto-hébergée par le site (static/fonts/).
+   Depuis /experiments/nouveau-diaporama/ elle est à ../../fonts/ ; sur le site
+d'organisation (diaporama servi à la racine, ressources dans /diaporama/)
+ tools/sync-staging.sh réécrit ce chemin en ../fonts/. */
+@font-face {
+  font-family: "DINdong";
+  src: url("../fonts/dindong/DINdong.woff2") format("woff2"),
+       url("../fonts/dindong/DINdong.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   --ink: #F5EFE4;          /* blanc chamois de la charte */
   --accent: #FAB617;
@@ -51,9 +63,9 @@ html, body {
   image-rendering: auto;
 }
 
-/* barre bas-gauche : le logo (clic = entrer sur le site) + navigation ‹ ›
-   Elle flotte PAR-DESSUS la photo plein cadre : on lui donne un fond diffus
-   pour rester lisible sur n'importe quelle image (claire ou sombre). */
+/* barre bas-gauche : le bouton « Entrer » (clic = entrer sur le site) +
+   navigation ‹ ›. Elle flotte PAR-DESSUS la photo plein cadre : le bouton a
+   son propre fond jaune, opaque, donc lisible sur n'importe quelle image. */
 #bottom-bar {
   position: fixed;
   bottom: calc(28px + var(--sa-b));
@@ -62,23 +74,37 @@ html, body {
   align-items: center;
   gap: 10px;
   z-index: 10;
-  padding: 8px 10px;
-  background: radial-gradient(
-    ellipse at 0% 100%,
-    rgba(20, 23, 26, 0.62) 0%,
-    rgba(20, 23, 26, 0.34) 55%,
-    rgba(20, 23, 26, 0) 100%
-  );
+  padding: 0;
+  background: none;
 }
 
+/* retour client 2026-11-13 : l'image du logo est remplacée par le mot
+   « Entrer », texte NOIR sur fond JAUNE de la charte (--accent). Même fonte
+   que les titres du site (DINdong, auto-hébergée) : elle est servie depuis
+   ../../fonts/ par le site, et par /fonts/ sur le site d'organisation. */
 #logo-tp {
-  display: block;
-  line-height: 0;
-  opacity: 0.85;
-  transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 6px 16px 8px;
+  background: var(--accent);
+  color: #000;
+  font-family: "DINdong", "DIN", "DIN Condensed", "Helvetica Neue", Helvetica,
+               Arial, sans-serif;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
 }
-#logo-tp:hover { opacity: 1; }
-#logo-tp img { display: block; height: 40px; width: auto; }
+#logo-tp:hover,
+#logo-tp:focus-visible {
+  background: var(--ink);
+  color: #000;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 /* bouton lecture / pause : ▶︎ pendant le diaporama, ❚❚ en pause
    (cf. body.paused). C'est un vrai <button> — il reçoit les clics et le
@@ -117,15 +143,15 @@ body.paused #state::before { content: "\275A\275A"; }          /* ❚❚ */
 #state:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 @media (max-width: 640px) {
-  #bottom-bar { bottom: calc(14px + var(--sa-b)); left: calc(14px + var(--sa-l)); gap: 8px; padding: 6px 8px; }
-  #logo-tp img { height: 32px; width: auto; }
+  #bottom-bar { bottom: calc(14px + var(--sa-b)); left: calc(14px + var(--sa-l)); gap: 8px; }
+  #logo-tp { min-height: 32px; padding: 5px 12px 7px; font-size: 18px; }
   #state { width: 36px; height: 36px; }
   #state::before { font-size: 18px; }
 }
 
 /* pointeur grossier (tactile) : pas d'état survol qui reste « collé » */
 @media (hover: none) {
-  #logo-tp { opacity: 0.9; }
+  #logo-tp:hover { background: var(--accent); }
 }
 
 @media (prefers-reduced-motion: reduce) {

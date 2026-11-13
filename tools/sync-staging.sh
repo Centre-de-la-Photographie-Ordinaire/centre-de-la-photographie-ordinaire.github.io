@@ -113,6 +113,12 @@ for f in sorted(src.iterdir()):
         # écrasé par Hugo (il refuserait d'écrire public/index.html par-dessus,
         # sans erreur), et l'umask du poste (g+w) le propageait aux copies.
         dest.chmod(0o644)
+# le style.css du diaporama porte sa propre @font-face (DINdong, pour le bouton
+# « Entrer ») : depuis website-draft elle vise ../../fonts/, ici le diaporama
+# vit dans /diaporama/ et la fonte du site dans /fonts/ -> ../fonts/.
+css = (out / "style.css").read_text(encoding="utf-8")
+css = css.replace('url("../../fonts/', 'url("../fonts/')
+(out / "style.css").write_text(css, encoding="utf-8")
 html = (src / "index.html").read_text(encoding="utf-8")
 html = html.replace("<!doctype html>\n", "<!doctype html>\n"
     "<!-- racine du site : diaporama vitrine (copie de website-draft, "
