@@ -1,8 +1,10 @@
 {{ define "main" }}
 <main class="main collection-page">
   {{ .Content }}
-  {{ partial "galerie.html" . }}
+  {{/* retour client 2026-11-13 : le formulaire d'alerte des parutions passe
+       au-dessus de la galerie (il était en bas de page). */}}
   {{ partial "parutions.html" . }}
+  {{ partial "galerie.html" . }}
   <script>window.GALERIE_BASE = {{ "collection/" | relURL }};</script>
   <script src="{{ "collection/galerie.js" | relURL }}" defer></script>
 </main>

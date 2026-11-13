@@ -928,14 +928,6 @@ body {
 .collection-item summary::-webkit-details-marker { display: none; }
 .collection-item summary:hover { background: rgba(250, 182, 23, 0.05); }
 .collection-item[open] summary { color: var(--accent); }
-/* nombre d'images, en retrait, comme une pagination discrète */
-.collection-nb {
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  color: var(--dim);
-  font-variant-numeric: tabular-nums;
-}
-.collection-item[open] .collection-nb { color: rgba(250, 182, 23, 0.7); }
 
 /* --- galerie d'une collection (dans son panneau) --- */
 .galerie { padding: 0.2rem 0.5rem 1.4rem; }
@@ -1546,12 +1538,16 @@ body {
 }
 /* === end missions === */
 
-/* ===== formulaire « être prévenu des parutions » (bas de /collection/) =====
+/* ===== formulaire « être prévenu des parutions » (haut de /collection/) =====
    Une seule ligne : libellé, champ, bouton (demande client 2026-11-12).
-   Sur une colonne étroite, le champ et le bouton passent à la ligne suivante. */
+   Sur une colonne étroite, le champ et le bouton passent à la ligne suivante.
+   Depuis le 2026-11-13 le bloc est en HAUT de page, au-dessus de la galerie :
+   plus de marge haute, et un filet le sépare de la liste des collections. */
 .parutions {
-  margin: 3rem 0 1rem;
+  margin: 0 0 2rem;
+  padding-bottom: 1.6rem;
   max-width: 62rem;
+  border-bottom: 1px solid rgba(245, 239, 228, 0.12);
 }
 .parutions-titre {
   font-family: var(--font-titre);
