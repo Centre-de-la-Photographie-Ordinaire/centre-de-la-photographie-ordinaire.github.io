@@ -8,6 +8,15 @@ sansTitre: true
 <p><span class="objet-ligne-titre">Le Centre de la photographie ordinaire abrite la collection :<br />3 000 000 de photographies de famille, classées en plus de 400 thèmes.</span></p>
 <p>3 000 000 de photographies amateurs et anonymes déploient un immense récit humain, du début de la photographie à nos jours. Le classement en plus de 400 thèmes révèle l'histoire du regard et des pratiques photographiques populaires.</p>
 <p>La collection sauvegarde ce patrimoine vernaculaire et œuvre à changer notre rapport aux photographies devenues anonymes.</p>
+
+<!-- mention Bicentenaire : déplacée ici (retour client 2026-11-13), sous le
+     texte de la colonne de gauche — elle était en pied de page, sous le
+     tableau à deux colonnes. La seule mention du label Bicentenaire sur la
+     page ; les logos (centre + cercle 1826-2026) ont été retirés sur demande
+     client 2026-11-10 : le texte seul, sous un filet. -->
+<div class="objet-partenaires">
+<p class="mention-bicentenaire">De septembre 2026 à septembre 2027, les expositions et ateliers proposés sont du labellisés par le ministère de la Culture dans le cadre Bicentenaire de la Photographie</p>
+</div>
 </div>
 
 <div class="objet-col-image">
@@ -24,13 +33,6 @@ sansTitre: true
 
 </ul>
 </div>
-</div>
-
-<!-- pied de page de la page objet : la seule mention du label Bicentenaire.
-     Les logos (centre + cercle 1826-2026) ont été retirés sur demande client
-     2026-11-10 : le texte seul, sous un filet. -->
-<div class="objet-partenaires">
-  <p class="mention-bicentenaire">De septembre 2026 à septembre 2027, les expositions et ateliers proposés sont du labellisés par le ministère de la Culture dans le cadre Bicentenaire de la Photographie</p>
 </div>
 
 <!-- Les « panneaux » sont des <dialog> natifs (cf. components/dialog, v6) :

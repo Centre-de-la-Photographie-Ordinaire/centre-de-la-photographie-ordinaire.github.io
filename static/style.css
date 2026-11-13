@@ -448,10 +448,12 @@ body {
    collection : » se termine sur sa propre ligne, les chiffres ouvrent la
    suivante. Le <br> du HTML fait la coupure. */
 .objet-ligne-titre { display: inline; }
-/* pied de page de /objet/ : la mention Bicentenaire seule (sans les logos),
-   sous un filet qui la sépare de la ligne des liens. */
+/* mention Bicentenaire : dans la colonne de texte de /objet/, sous les
+   paragraphes (retour client 2026-11-13 — elle était en pied de page). Le
+   filet la sépare du texte ; plus de grande marge haute ni de marge basse,
+   c'est la colonne qui gère l'espacement. */
 .objet-partenaires {
-  margin: 2.6rem 0 1rem;
+  margin: 1.4rem 0 0;
   border-top: 1px solid rgba(245, 239, 228, 0.18);
   padding-top: 1.2rem;
 }
