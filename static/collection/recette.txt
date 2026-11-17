@@ -1,1 +1,1 @@
-fond=#AEAEAE marges=x0.02/24px,y0.015/20px ratio=photo largeurs=480-960-1440-2000
+fond=#AEAEAE cadre=4:3 marges=x0.02/24px,y0.015/20px largeurs=480-960-1440-2000

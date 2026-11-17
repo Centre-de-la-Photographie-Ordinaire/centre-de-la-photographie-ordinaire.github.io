@@ -127,7 +127,7 @@
     item.image.srcset = list.map(function (s) {
       return asset(s.file) + ' ' + s.w + 'w';
     }).join(', ');
-    item.image.sizes = sizesFor(img);
+    item.image.sizes = sizesFor();
     item.image.src = asset(fallbackTier(img));
     item.image.alt = item.collection.name + ' — photographie ' + num + ' sur ' + count;
     item.image.width = img.w;
@@ -183,27 +183,20 @@
   // une image cassée.
   var MAIN_MAX_H = 544;        // 34rem : plafond de hauteur du CSS
   var GALERIE_MAX_W = 1084;    // 70rem - 2*1.5rem (.main) - 2*0.5rem (.galerie)
-  function sizesFor(img) {
-    var ar = (img.w || 1) / (img.h || 1);
-
-    // Largeur affichée = min(544px * format de la photo, largeur disponible).
-    //
+  // Toutes les images sont dans un cadre 4:3 (cf. tools/import-collection.py) :
+  // la largeur affichée ne dépend pas de la photo, seulement de la place
+  // disponible. 544px de haut * 4/3 = 725px de large au plus.
+  var MAIN_MAX_W = Math.round(Math.min(MAIN_MAX_H * 4 / 3, GALERIE_MAX_W));
+  function sizesFor() {
     // • Sous 700 px de fenêtre, .galerie n'a plus de padding : la largeur
-    //   disponible vaut 100vw - 3rem (les paddings de .main), donc l'image est
-    //   toujours plus étroite que la fenêtre — une part de `vw` convient.
-    // • Au-dessus, elle vaut min(1084px, 100vw - 4rem). Dès que la fenêtre
-    //   dépasse ~1148px, la largeur ne bouge plus : `sizes` s'arrête à une
-    //   constante.
-    //
-    // `vw` plutôt qu'un calcul : le navigateur résout lui-même la longueur, et
-    // on n'a pas à rejouer l'arithmétique des paddings en px.
-    var byHeight = MAIN_MAX_H * ar;        // largeur si la hauteur plafonne
-    var full = Math.round(Math.min(byHeight, GALERIE_MAX_W));
+    //   disponible vaut 100vw - 3rem (les paddings de .main).
+    // • Au-dessus, elle vaut min(1084px, 100vw - 4rem), puis 725px dès que la
+    //   hauteur plafonne.
     return [
       '(max-width: 700px) calc(100vw - 3rem)',
       '(max-width: ' + Math.round(GALERIE_MAX_W + 64) + 'px) min('
-        + Math.round(byHeight) + 'px, calc(100vw - 4rem))',
-      full + 'px'
+        + MAIN_MAX_W + 'px, calc(100vw - 4rem))',
+      MAIN_MAX_W + 'px'
     ].join(', ');
   }
 
