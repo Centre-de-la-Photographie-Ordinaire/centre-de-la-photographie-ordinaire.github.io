@@ -90,11 +90,12 @@
       im.loading = 'lazy';
       im.decoding = 'async';
       im.draggable = false;
-      // toutes les images sont dans le cadre 4:3 paysage (cf.
-      // tools/import-collection.py) : dimensions fixes, la place est réservée
-      // avant le chargement et la page ne saute pas.
+      // les vignettes sont toutes au même palier (480 sur le grand côté,
+      // cf. tools/import-collection.py) : le bandeau les affiche à ~160 px,
+      // 480 suffit donc même sur un écran 2x. Plus de srcset ici : une seule
+      // largeur, autant de requêtes en moins.
       im.width = 480;
-      im.height = 360;
+      im.height = Math.round(480 * (img.h / img.w));
       b.appendChild(im);
       frag.appendChild(b);
       item.thumbs.push(b);
@@ -115,10 +116,22 @@
     var img = imgs[item.index];
     var num = item.index + 1;
 
-    item.image.src = asset(img.large);
+    // srcset : le navigateur choisit le palier (cf. WIDTHS dans
+    // tools/import-collection.py). `src` sert de repli aux navigateurs sans
+    // srcset : on y met le palier 960 plutôt que le 2000, pour ne pas envoyer
+    // la plus lourde à un vieux navigateur (le lien, lui, pointe vers la
+    // grande image). La largeur/hauteur réelles du JSON réservent la place
+    // avant chargement : le format du cadre suit la photo, il n'est plus
+    // fixé en 4:3.
+    var list = img.sources || [];
+    item.image.srcset = list.map(function (s) {
+      return asset(s.file) + ' ' + s.w + 'w';
+    }).join(', ');
+    item.image.sizes = sizesFor(img);
+    item.image.src = asset(fallbackTier(img));
     item.image.alt = item.collection.name + ' — photographie ' + num + ' sur ' + count;
-    item.image.width = 2000;
-    item.image.height = 1500;
+    item.image.width = img.w;
+    item.image.height = img.h;
 
     item.lien.href = asset(img.large);
     item.legendeNum.textContent = num + ' / ' + count;
@@ -151,6 +164,60 @@
     }
   }
 
+  // `sizes` : largeur d'affichage probable de la grande image, pour que le
+  // navigateur choisisse le bon palier AVANT de télécharger.
+  //
+  // Le CSS borne la grande image par la hauteur : max-height: min(58vh, 34rem)
+  // et max-width: 100 %. Comme le cadre suit le format de la photo, la largeur
+  // affichée dépend du format : un portrait est étroit, un paysage occupe la
+  // largeur disponible. On rejoue ce calcul ici, sinon un portrait affiché à
+  // 350 px téléchargerait du 2000.
+  //
+  // La largeur disponible vient de .main (max-width: 70rem = 1120 px, padding
+  // 1.5rem de chaque côté) et de .galerie (padding 0.5rem de chaque côté, qui
+  // passe à 0 sous 700 px). D'où : (100vw - 3rem) sous 700 px, sinon
+  // min(1084 px, 100vw - 4rem).
+  //
+  // On ignore les 58vh (qui dépendent de la fenêtre) et on garde le plafond de
+  // 34rem (544 px) : sous-estimer fait choisir un palier plus petit, jamais
+  // une image cassée.
+  var MAIN_MAX_H = 544;        // 34rem : plafond de hauteur du CSS
+  var GALERIE_MAX_W = 1084;    // 70rem - 2*1.5rem (.main) - 2*0.5rem (.galerie)
+  function sizesFor(img) {
+    var ar = (img.w || 1) / (img.h || 1);
+
+    // Largeur affichée = min(544px * format de la photo, largeur disponible).
+    //
+    // • Sous 700 px de fenêtre, .galerie n'a plus de padding : la largeur
+    //   disponible vaut 100vw - 3rem (les paddings de .main), donc l'image est
+    //   toujours plus étroite que la fenêtre — une part de `vw` convient.
+    // • Au-dessus, elle vaut min(1084px, 100vw - 4rem). Dès que la fenêtre
+    //   dépasse ~1148px, la largeur ne bouge plus : `sizes` s'arrête à une
+    //   constante.
+    //
+    // `vw` plutôt qu'un calcul : le navigateur résout lui-même la longueur, et
+    // on n'a pas à rejouer l'arithmétique des paddings en px.
+    var byHeight = MAIN_MAX_H * ar;        // largeur si la hauteur plafonne
+    var full = Math.round(Math.min(byHeight, GALERIE_MAX_W));
+    return [
+      '(max-width: 700px) calc(100vw - 3rem)',
+      '(max-width: ' + Math.round(GALERIE_MAX_W + 64) + 'px) min('
+        + Math.round(byHeight) + 'px, calc(100vw - 4rem))',
+      full + 'px'
+    ].join(', ');
+  }
+
+  // Palier de repli d'une image : le plus petit qui fasse au moins 960 sur le
+  // grand côté, sinon le plus grand disponible. Sert au `src` (navigateurs
+  // sans srcset) et au préchargement des voisines.
+  function fallbackTier(img) {
+    var list = img.sources || [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].w >= 960) return list[i].file;
+    }
+    return list.length ? list[list.length - 1].file : img.large;
+  }
+
   var prefetched = {};
   function prefetchNeighbours(item) {
     var imgs = item.collection.images;
@@ -160,8 +227,11 @@
       var img = imgs[j];
       if (!img || prefetched[img.large]) return;
       prefetched[img.large] = true;
+      // on précharge un palier intermédiaire (celui que le navigateur prendra
+      // en pratique), pas la grande image pleine résolution : précharger du
+      // 2000 px pour une voisine qu'on ne regardera peut-être pas coûte cher.
       var p = new Image();
-      p.src = asset(img.large);
+      p.src = asset(fallbackTier(img));
     });
   }
 
