@@ -1,5 +1,16 @@
-{{ define "main" }}
-<main class="main">
-{{ .Content }}
-</main>
-{{ end }}
+{{/*
+  Accueil neutralisé — la racine du site est le DIAPORAMA, écrit par
+  static/index.html (cf. tools/sync-staging.sh, section « racine »).
+
+  Ce gabarit n'écrit volontairement RIEN :
+    • un <main> vide suffisait autrefois, mais Hugo écrit sa page d'accueil
+      par-dessus le fichier statique selon l'ordre de son pipeline — sur le
+      build CI, la racine servait la page Hugo (en-tête + pied, sans photo)
+      au lieu du diaporama ;
+    • en n'émettant aucun HTML, la page d'accueil ne peut plus écraser
+      public/index.html : le fichier statique est la seule source de la racine.
+
+  Pourquoi le laisser dans layouts/ ? Pour que Hugo génère bien une page
+  d'accueil (sinon il la signale absente) et pour documenter l'intention.
+  Ne rien y remettre, et ne pas toucher à static/index.html.
+*/}}
