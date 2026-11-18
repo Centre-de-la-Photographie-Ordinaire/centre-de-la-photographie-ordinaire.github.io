@@ -1,16 +1,19 @@
 {{/*
-  Accueil neutralisé — la racine du site est le DIAPORAMA, écrit par
-  static/index.html (cf. tools/sync-staging.sh, section « racine »).
+  Accueil = DIAPORAMA.
 
-  Ce gabarit n'écrit volontairement RIEN :
-    • un <main> vide suffisait autrefois, mais Hugo écrit sa page d'accueil
-      par-dessus le fichier statique selon l'ordre de son pipeline — sur le
-      build CI, la racine servait la page Hugo (en-tête + pied, sans photo)
-      au lieu du diaporama ;
-    • en n'émettant aucun HTML, la page d'accueil ne peut plus écraser
-      public/index.html : le fichier statique est la seule source de la racine.
+  La racine du site est le diaporama vitrine, écrit par static/index.html
+  (cf. tools/sync-staging.sh). Ce gabarit ne fait qu'une chose : recopier ce
+  fichier, pour que la page d'accueil de Hugo et le fichier statique ne se
+  disputent plus public/index.html.
 
-  Pourquoi le laisser dans layouts/ ? Pour que Hugo génère bien une page
-  d'accueil (sinon il la signale absente) et pour documenter l'intention.
-  Ne rien y remettre, et ne pas toucher à static/index.html.
+  Pourquoi ce détour : laisser le gabarit vide ne suffit pas. Hugo écrit
+  quand même une page d'accueil, et selon l'ordre de son pipeline (qui a
+  varié entre versions) c'est tantôt la page vide, tantôt le fichier statique
+  qui gagne. Constaté en production le 2026-11-18 : la racine servait une page
+  sans photo, puis un fichier de 0 octet. En rendant explicitement le contenu
+  du diaporama, le résultat est le même quelle que soit la version de Hugo.
+
+  Ne rien changer ici sans changer static/index.html : c'est le même fichier,
+  lu une fois au build.
 */}}
+{{ readFile "static/index.html" | safeHTML }}
