@@ -152,16 +152,43 @@
 
   function scrollThumbIntoView(item) {
     var t = item.thumbs[item.index];
-    if (!t) return;
-    var box = item.pellicule.getBoundingClientRect();
+    var nav = item.pellicule;
+    if (!t || !nav) return;
+
+    // Position de la vignette DANS le bandeau. On ne peut pas utiliser
+    // t.offsetLeft : le .galerie-pellicule n'est pas positionné, donc
+    // offsetParent est le <body> et offsetLeft mesure depuis la page, pas
+    // depuis le conteneur défilant. On passe par les rectangles, qui sont
+    // toujours justes, en ajoutant le défilement courant.
+    var box = nav.getBoundingClientRect();
     var r = t.getBoundingClientRect();
-    // centre la vignette active dans le bandeau, seulement si elle en sort
-    if (r.left < box.left + 8 || r.right > box.right - 8) {
-      item.pellicule.scrollTo({
-        left: t.offsetLeft - item.pellicule.clientWidth / 2 + r.width / 2,
-        behavior: 'smooth'
-      });
+    var left = r.left - box.left + nav.scrollLeft;
+    var width = r.width;
+    var view = nav.clientWidth;
+
+    // Marge de confort de chaque côté : la vignette ne doit pas coller au bord.
+    var margin = 8;
+    var target = null;
+    if (left - margin < nav.scrollLeft) {
+      // elle dépasse à gauche (ou est entièrement hors champ)
+      target = left - margin;
+    } else if (left + width + margin > nav.scrollLeft + view) {
+      // elle dépasse à droite
+      target = left + width + margin - view;
     }
+    if (target === null) return;              // déjà visible : on ne bouge pas
+
+    // On ne peut pas défiler au-delà du contenu.
+    var max = Math.max(0, nav.scrollWidth - view);
+    target = Math.max(0, Math.min(target, max));
+
+    // Déplacement immédiat, jamais animé. Une animation « smooth » sur le
+    // bandeau pose deux problèmes : deux déflements rapprochés (flèches
+    // maintenues, touches répétées) s'interrompent l'un l'autre et laissent le
+    // bandeau à mi-chemin, vignette active hors champ ; et passer de la
+    // dernière vignette à la première traverse tout le bandeau en glissant, ce
+    // qui n'a aucun sens. Un saut sec est plus lisible et toujours juste.
+    nav.scrollLeft = target;
   }
 
   // `sizes` : largeur d'affichage probable de la grande image, pour que le
