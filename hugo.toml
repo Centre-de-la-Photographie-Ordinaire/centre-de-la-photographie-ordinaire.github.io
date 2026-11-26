@@ -60,4 +60,4 @@ disableKinds = ["taxonomy", "term"]
   # Formulaire « être prévenu des prochaines parutions » (bas de la page
   # collection). Endpoint Formspree fourni par le client ; pour en changer,
   # remplacer seulement l'identifiant après https://formspree.io/f/.
-  formspree_collection = "https://formspree.io/f/xrppwypr"
+  formspree_collection = "https://formspree.io/f/mnpdrqwg"

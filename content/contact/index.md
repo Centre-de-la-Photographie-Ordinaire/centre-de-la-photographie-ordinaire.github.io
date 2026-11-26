@@ -65,7 +65,7 @@ title: Contact
 
 <h2>écrire au centre</h2>
 
-<form class="form-contact" action="https://formspree.io/f/xvkzkvre" method="POST">
+<form class="form-contact" action="https://formspree.io/f/xoedbqrj" method="POST">
   <label>nom
     <input type="text" name="nom" autocomplete="name" required />
   </label>
